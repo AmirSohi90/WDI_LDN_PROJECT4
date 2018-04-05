@@ -38,6 +38,10 @@
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "mongoose": "^5.0.12",
+    "mongoose-unique-validator": "^2.0.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1"
   }
