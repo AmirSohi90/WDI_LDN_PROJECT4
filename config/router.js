@@ -5,7 +5,8 @@ const days = require('../controllers/days');
 const shifts = require('../controllers/shifts');
 
 router.route('/days')
-  .get(days.index);
+  .get(days.index)
+  .post(days.create);
 
 router.route('/shifts')
   .get(shifts.index)
