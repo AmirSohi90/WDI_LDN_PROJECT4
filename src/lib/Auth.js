@@ -9,7 +9,7 @@ class Auth{
   }
 
   static getToken(){
-    localStorage.getItem('token');
+    return localStorage.getItem('token');
   }
 
   static getPayload(){
@@ -23,7 +23,6 @@ class Auth{
   }
 
   static isAuthenticated(){
-
     const payload = this.getPayload();
     if(!payload || !payload.exp) return false;
 
