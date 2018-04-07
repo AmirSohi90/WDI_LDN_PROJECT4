@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const daySchema = new mongoose.Schema({
   dayOfTheWeek: { type: String, required: true },
   date: { type: String, required: true, unique: true }
-  //should be an array because the day has two shifts
-  // shifts: [{ type: mongoose.Schema.ObjectId, ref: 'Shift' }]
 });
 
 daySchema

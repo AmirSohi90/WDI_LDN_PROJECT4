@@ -16,7 +16,7 @@ function indexRoute(req, res, next){
     .catch(next);
 }
 
-function createRoute(req, res, next){
+function createRoute(req, res, next) {
   return Day.create(req.body)
     .then(day => res.status(201).json(day))
     .catch(next);

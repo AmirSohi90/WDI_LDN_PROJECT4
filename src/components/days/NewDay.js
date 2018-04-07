@@ -3,7 +3,7 @@ import axios from 'axios';
 import Auth from '../../lib/Auth';
 import DayForm from './DayForm';
 
-class NewRoute extends React.Component{
+class NewDay extends React.Component{
 
   state = {
     dayOfTheWeek: '',
@@ -40,4 +40,4 @@ class NewRoute extends React.Component{
 
 }
 
-export default NewRoute;
+export default NewDay;
