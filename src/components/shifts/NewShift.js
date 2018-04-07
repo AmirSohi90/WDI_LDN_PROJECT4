@@ -13,7 +13,7 @@ class NewShift extends React.Component{
 
   componentDidMount(){
     axios.get('/api/days')
-      .then(res => this.setState({ day: res.data }, () => console.log(this.state)));
+      .then(res => this.setState({ day: res.data.days, employee: res.data.users }, () => console.log(this.state)));
   }
 
   handleChange = ({ target: { name, value }  }) => {
