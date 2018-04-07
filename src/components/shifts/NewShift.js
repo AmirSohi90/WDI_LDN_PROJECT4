@@ -1,18 +1,23 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
-import DayForm from './DayForm';
+import ShiftForm from './ShiftForm';
 
-class NewRoute extends React.Component{
+class NewShift extends React.Component{
 
   state = {
-    dayOfTheWeek: '',
-    date: ''
+    shiftType: '',
+    employee: '',
+    day: ''
+  }
+
+  componentDidMount(){
+    axios.get('/api/days')
+      .then(res => this.setState({ day: res.data }, () => console.log(this.state)));
   }
 
   handleChange = ({ target: { name, value }  }) => {
     this.setState({ [name]: value }, () => console.log(this.state));
-
   }
 
   handleSubmit = (e) => {
@@ -20,25 +25,19 @@ class NewRoute extends React.Component{
 
     axios({
       method: 'POST',
-      url: '/api/days',
+      url: '/api/shifts',
       headers: { Authorization: `Bearer ${Auth.getToken()}` },
       data: this.state
     })
-      .then(() => this.props.history.push('/days'));
+      .then(() => this.props.history.push('/shifts/new'));
   }
 
   render() {
     return (
       <div className="container">
-        <DayForm
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          data={this.state}
-        />
       </div>
     );
   }
-
 }
 
-export default NewRoute;
+export default NewShift;
