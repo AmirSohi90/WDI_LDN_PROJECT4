@@ -5,7 +5,6 @@ function indexRoute(req, res, next){
   const data = {};
   Day.find()
     .populate('shifts')
-    .populate('employee')
     .then(days => data.days = days)
     .then(() => {
       return User.find()

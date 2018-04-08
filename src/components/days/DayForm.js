@@ -8,7 +8,6 @@ const DayForm = ({ handleChange, handleSubmit, data }) => {
           <div className="field">
             <div className="control">
               <div className="select">
-                <label htmlFor="dayOfTheWeek">Day of the Week</label>
                 <select name="dayOfTheWeek" onChange={handleChange} value={data.dayOfTheWeek}>
                   <option value="" disabled>Select a Day</option>
                   <option value="Monday">Monday</option>

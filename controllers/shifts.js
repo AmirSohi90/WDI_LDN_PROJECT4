@@ -4,7 +4,6 @@ const User = require('../models/User');
 function indexRoute(req, res, next){
   const data = {};
   Shift.find()
-    .populate('employee')
     .then(shifts => data.shifts = shifts)
     .then(() => {
       return User.find()

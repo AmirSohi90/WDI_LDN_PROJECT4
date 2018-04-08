@@ -11,7 +11,7 @@ class IndexRoute extends React.Component{
 
   componentDidMount(){
     axios.get('/api/days')
-      .then(res => this.setState({ day: res.data.days } ,() => console.log(this.props.match.params)));
+      .then(res => this.setState({ day: res.data.days }));
   }
 
   handleDelete = () => {
@@ -26,13 +26,13 @@ class IndexRoute extends React.Component{
       <div className="container">
         <ul className="columns is-multiline">
           {this.state.day.map((day, i) =>
-            <li key={i} className="column is-one-third-desktop">
+            <li key={i} className="column card is-one-fifth-desktop">
               <Link to={`days/${day._id}`}>
                 {day.dayOfTheWeek} - {day.date}
-                {day.shifts.map((shift, i) =>
-                  <h1 key={i}>{shift.employee} - {shift.shiftType}</h1>
-                )}
               </Link>
+              {day.shifts.map((shift, i) =>
+                <h1 key={i}>{shift.employee} - {shift.shiftType}</h1>
+              )}
             </li>)}
         </ul>
       </div>
