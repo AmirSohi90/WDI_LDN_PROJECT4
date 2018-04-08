@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
+import { Link } from 'react-router-dom';
 
 class ShowRoute extends React.Component{
   state = {
@@ -36,6 +37,8 @@ class ShowRoute extends React.Component{
             </li>
           })}
         </ul> */}
+        <Link className="button is-primary" to={`/days/${this.props.match.params.id}/edit`}>Edit</Link>
+        {' '}
         {!this.state.isDeleted ?
           <button className="button is-danger" onClick={this.handleToggle}>Delete</button>
           :

@@ -23,6 +23,14 @@ function createRoute(req, res, next) {
     .catch(next);
 }
 
+function updateRoute(req, res, next) {
+  return Day.findById(req.params.id)
+    .then(day => Object.assign(day, req.body))
+    .then(day => day.save())
+    .then(day => res.json(day))
+    .catch(next);
+}
+
 function showRoute(req, res, next) {
   return Day.findById(req.params.id)
     .then(day => res.json(day))
@@ -41,5 +49,6 @@ module.exports = {
   index: indexRoute,
   create: createRoute,
   show: showRoute,
+  update: updateRoute,
   delete: deleteRoute
 };

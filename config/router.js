@@ -10,6 +10,7 @@ router.route('/days')
 
 router.route('/days/:id')
   .get(days.show)
+  .put(days.update)
   .delete(days.delete);
 
 router.route('/shifts')
