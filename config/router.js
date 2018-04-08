@@ -8,6 +8,10 @@ router.route('/days')
   .get(days.index)
   .post(days.create);
 
+router.route('/days/:id')
+  .get(days.show)
+  .delete(days.delete);
+
 router.route('/shifts')
   .get(shifts.index)
   .post(shifts.create);

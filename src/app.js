@@ -11,6 +11,8 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import NewDay from './components/days/NewDay';
 import NewShift from './components/shifts/NewShift';
+import IndexRoute from './components/calendar/IndexRoute';
+import ShowRoute from './components/calendar/ShowRoute';
 
 class App extends React.Component {
   render() {
@@ -22,6 +24,8 @@ class App extends React.Component {
             <Switch>
               <Route path ="/shifts/new" component={NewShift} />
               <Route path ="/days/new" component={NewDay} />
+              <Route path ="/days/:id" component={ShowRoute} />
+              <Route path ="/days" component={IndexRoute} />
               <Route path ="/Login" component={Login} />
               <Route path ="/register" component={Register} />
             </Switch>

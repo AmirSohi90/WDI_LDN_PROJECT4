@@ -44,6 +44,15 @@ class NewShift extends React.Component{
   render() {
     return (
       <div className="container">
+        <ul className="columns is-multiline">
+          {this.state.displayDays.map((day, i) =>
+            <li key={i} className="column is-one-third-desktop">
+              {day.dayOfTheWeek} - {day.date}
+              {day.shifts.map((shift, i) =>
+                <li key={i}>{shift.employee} - {shift.shiftType}</li>
+              )}
+            </li>)}
+        </ul>
         <form onSubmit={this.handleSubmit}>
           <div className="columns is-multiline is-mobile">
             <div className="column is-full-desktop">
@@ -62,10 +71,10 @@ class NewShift extends React.Component{
                     )}
                   </ul>
                   <h1>Select Shift Type: {this.state.shiftType}</h1>
-                  <input type="checkbox" value="Afternoon" onClick={this.handleShiftType}/>
+                  <input type="radio" value="Afternoon Shift" onClick={this.handleShiftType}/>
                   <label>Afternoon Shift</label>
                   {' '}
-                  <input type="checkbox" value="Evening" onClick={this.handleShiftType}/>
+                  <input type="radio" value="Evening Shift" onClick={this.handleShiftType}/>
                   <label>Evening Shift</label>
                 </div>
               </div>

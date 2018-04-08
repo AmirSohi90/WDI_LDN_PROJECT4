@@ -5,6 +5,7 @@ function indexRoute(req, res, next){
   const data = {};
   Day.find()
     .populate('shifts')
+    .populate('employee')
     .then(days => data.days = days)
     .then(() => {
       return User.find()
@@ -22,8 +23,23 @@ function createRoute(req, res, next) {
     .catch(next);
 }
 
+function showRoute(req, res, next) {
+  return Day.findById(req.params.id)
+    .then(day => res.json(day))
+    .catch(next);
+}
+
+function deleteRoute(req, res, next) {
+  return Day.findById(req.params.id)
+    .then(day => day.remove())
+    .then(() => res.sendStatus(204))
+    .catch(next);
+}
+
 
 module.exports = {
   index: indexRoute,
-  create: createRoute
+  create: createRoute,
+  show: showRoute,
+  delete: deleteRoute
 };
