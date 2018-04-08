@@ -90,19 +90,19 @@ mongoose.connect(dbURI, (err, db) => {
       date: '2018-05-08'
     }, {
       dayOfTheWeek: 'Wednesday',
-      date: '2018-05-2018'
-    }, {
-      dayOfTheWeek: 'Thursday',
       date: '2018-05-09'
     }, {
-      dayOfTheWeek: 'Friday',
+      dayOfTheWeek: 'Thursday',
       date: '2018-05-10'
     }, {
-      dayOfTheWeek: 'Saturday',
+      dayOfTheWeek: 'Friday',
       date: '2018-05-11'
     }, {
-      dayOfTheWeek: 'Sunday',
+      dayOfTheWeek: 'Saturday',
       date: '2018-05-12'
+    }, {
+      dayOfTheWeek: 'Sunday',
+      date: '2018-05-13'
     }]))
     .then(users => console.log(`${users.length} users created`))
     .catch(err => console.log(err))

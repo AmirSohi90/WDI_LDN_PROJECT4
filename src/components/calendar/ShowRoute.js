@@ -4,12 +4,17 @@ import Auth from '../../lib/Auth';
 
 class ShowRoute extends React.Component{
   state = {
-    day: []
+    day: '',
+    isDeleted: false
   }
 
   componentDidMount(){
     axios.get(`/api/days/${this.props.match.params.id}`)
-      .then(res => this.setState({ day: res.data, shifts: res.data.shifts }, () => console.log(this.state.day)));
+      .then(res => this.setState({ day: res.data }, () => console.log(this.state.day)));
+  }
+
+  handleToggle = () => {
+    this.setState({ isDeleted: !this.state.isDeleted });
   }
 
   deleteDay = () => {
@@ -31,7 +36,16 @@ class ShowRoute extends React.Component{
             </li>
           })}
         </ul> */}
-        <button className="button is-danger" onClick={this.deleteDay}>Delete</button>
+        {!this.state.isDeleted ?
+          <button className="button is-danger" onClick={this.handleToggle}>Delete</button>
+          :
+          <div>
+            <h5 className="subtitle">Are you sure?</h5>
+            <button className="button is-primary" onClick={this.handleToggle}>No</button>
+            {' '}
+            <button className="button is-danger" onClick={this.deleteDay}>Yes</button>
+          </div>
+        }
       </div>
     );
   }
