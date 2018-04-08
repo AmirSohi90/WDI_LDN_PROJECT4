@@ -23,7 +23,7 @@ class NewDay extends React.Component{
       headers: { Authorization: `Bearer ${Auth.getToken()}` },
       data: this.state
     })
-      .then(() => this.props.history.push('/days'));
+      .then(() => this.props.history.push('/shifts/new'));
   }
 
   render() {

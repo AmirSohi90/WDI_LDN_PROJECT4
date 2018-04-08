@@ -30,7 +30,7 @@ class IndexRoute extends React.Component{
               <Link to={`days/${day._id}`}>
                 {day.dayOfTheWeek} - {day.date}
                 {day.shifts.map((shift, i) =>
-                  <li key={i}>{shift.employee} - {shift.shiftType}</li>
+                  <h1 key={i}>{shift.employee} - {shift.shiftType}</h1>
                 )}
               </Link>
             </li>)}

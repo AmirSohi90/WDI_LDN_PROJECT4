@@ -49,7 +49,7 @@ class NewShift extends React.Component{
             <li key={i} className="column is-one-third-desktop">
               {day.dayOfTheWeek} - {day.date}
               {day.shifts.map((shift, i) =>
-                <li key={i}>{shift.employee} - {shift.shiftType}</li>
+                <h1 key={i}>{shift.employee} - {shift.shiftType}</h1>
               )}
             </li>)}
         </ul>

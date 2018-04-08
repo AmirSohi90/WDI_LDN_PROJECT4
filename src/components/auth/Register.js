@@ -36,7 +36,7 @@ class Register extends React.Component{
           <label htmlFor="firstname">First Name</label>
           <input className="input"
             placeholder="First Name"
-            name="firstname"
+            name="firstName"
             onChange={this.handleChange}
           />
         </div>
@@ -44,7 +44,7 @@ class Register extends React.Component{
           <label htmlFor="lastname">Last Name</label>
           <input className="input"
             placeholder="Last Name"
-            name="lastname"
+            name="lastName"
             onChange={this.handleChange}
           />
         </div>
