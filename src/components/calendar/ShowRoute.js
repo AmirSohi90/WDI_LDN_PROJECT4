@@ -37,10 +37,12 @@ class ShowRoute extends React.Component{
             </li>
           })}
         </ul> */}
-        <Link className="button is-primary" to={`/days/${this.props.match.params.id}/edit`}>Edit</Link>
-        {' '}
         {!this.state.isDeleted ?
-          <button className="button is-danger" onClick={this.handleToggle}>Delete</button>
+          <div>
+            <Link className="button is-primary" to={`/days/${this.props.match.params.id}/edit`}>Edit</Link>
+            {' '}
+            <button className="button is-danger" onClick={this.handleToggle}>Delete</button>
+          </div>
           :
           <div>
             <h5 className="subtitle">Are you sure?</h5>
