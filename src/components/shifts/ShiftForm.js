@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, handleSubmit, data }) => {
   return(
     <div className="container">
@@ -17,23 +19,30 @@ const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, han
           <div className="column is-full-desktop">
             <div className="field">
               <div className="control">
-                <h1>Select Day: {data.day.dayOfTheWeek} {data.day.date}</h1>
-                <ul>
+                <h1 className="subtitle"><strong>Select Day: {data.day.dayOfTheWeek} {data.day.date}</strong></h1>
+                <ul className="columns is-multiline">
                   {data.displayDays.map((day, i) =>
-                    <li key={i} className="button" onClick={() => handleDayChange(day)}>{day.dayOfTheWeek} {day.date}</li>
+                    <div key={i} className="column is-one-quarter-desktop">
+                      <li className="button is-info" onClick={() => handleDayChange(day)}>{day.dayOfTheWeek} {day.date}</li>
+                    </div>
                   )}
+                  <div className="column is-full-desktop">
+                    <Link className="button" to="/days/new">Click here if you cant find a day</Link>
+                  </div>
                 </ul>
-                <h1>Select Employee: {data.employee.firstName} {data.employee.lastName} - {data.employee.jobRole}</h1>
-                <ul>
+                <h1 className="subtitle"><strong>Select Employee: {data.employee.firstName} {data.employee.lastName} - {data.employee.jobRole}</strong></h1>
+                <ul className="columns is-multiline">
                   {data.displayEmployees.map((staff, i) =>
-                    <li key={i} value={staff} className="button" onClick={() => handleEmployeeChange(staff)}>{staff.firstName} {staff.lastName} - {staff.jobRole}</li>
+                    <div key={i} className="column is-one-quarter-desktop">
+                      <li value={staff} className="button is-info" onClick={() => handleEmployeeChange(staff)}>{staff.firstName} {staff.lastName} - {staff.jobRole}</li>
+                    </div>
                   )}
                 </ul>
-                <h1>Select Shift Type: {data.shiftType}</h1>
-                <input type="radio" value="Afternoon Shift" onClick={handleShiftType}/>
+                <h1 className="subtitle"><strong>Select Shift Type: {data.shiftType}</strong></h1>
+                <input name="shift" type="radio" value="Afternoon Shift" onClick={handleShiftType}/>
                 <label>Afternoon Shift</label>
                 {' '}
-                <input type="radio" value="Evening Shift" onClick={handleShiftType}/>
+                <input name="shift" type="radio" value="Evening Shift" onClick={handleShiftType}/>
                 <label>Evening Shift</label>
               </div>
             </div>
