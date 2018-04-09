@@ -32,6 +32,7 @@ function updateRoute(req, res, next) {
 
 function showRoute(req, res, next) {
   return Day.findById(req.params.id)
+    .populate('shifts')
     .then(day => res.json(day))
     .catch(next);
 }

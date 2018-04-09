@@ -6,12 +6,13 @@ import { Link } from 'react-router-dom';
 class ShowRoute extends React.Component{
   state = {
     day: '',
+    shifts: [],
     isDeleted: false
   }
 
   componentDidMount(){
     axios.get(`/api/days/${this.props.match.params.id}`)
-      .then(res => this.setState({ day: res.data }, () => console.log(this.state.day)));
+      .then(res => this.setState({ day: res.data, shifts: res.data.shifts }, () => console.log(this.state)));
   }
 
   handleToggle = () => {
@@ -29,14 +30,13 @@ class ShowRoute extends React.Component{
     return(
       <div className="container">
         <h1 className="title">{this.state.day.dayOfTheWeek} - {this.state.day.date}</h1>
-        {/* <ul>
-          {this.state.day.shifts.map((shift, i) => {
+        <ul>
+          {this.state.shifts.map((shift, i) =>
             <li key={i}>
-              {shift.employee}
-              {shift.shiftType}
+              {shift.employee} - {shift.shiftType}
             </li>
-          })}
-        </ul> */}
+          )}
+        </ul>
         {!this.state.isDeleted ?
           <div>
             <Link className="button is-primary" to={`/days/${this.props.match.params.id}/edit`}>Edit</Link>
