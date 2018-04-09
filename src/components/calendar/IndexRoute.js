@@ -23,7 +23,7 @@ class IndexRoute extends React.Component{
   }
 
   handleClick = (shift) => {
-    // console.log(shift);
+    console.log(shift);
     const chosenShifts = this.state.shifts.concat(shift);
     let updatedShift1 = {};
     let updatedShift2 = {};
@@ -70,11 +70,25 @@ class IndexRoute extends React.Component{
               {day.shifts.map((shift, i) =>
                 <div key={i}>
                   <h1>{shift.employee.firstName} {shift.shiftType}</h1>
-                  <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
+                  {this.state.shifts.length < 2 ?
+                    <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
+                    :
+                    <p></p>
+                  }
                 </div>
               )}
             </li>)}
         </ul>
+        {this.state.shifts.length === 1 ?
+          <h1>Change Shift: {this.state.shifts[0].employee.firstName} on {}</h1>
+          :
+          <p></p>
+        }
+        {this.state.shifts.length > 1 ?
+          <h1>Change Shift: {this.state.shifts[0].employee.firstName} {this.state.shifts[0].employee.lastName}s {this.state.shifts[0].shiftType} with {this.state.shifts[1].employee.firstName} {this.state.shifts[1].employee.lastName}s {this.state.shifts[1].shiftType}</h1>
+          :
+          <p></p>
+        }
         <form onSubmit={this.handleSubmit}>
           <button className="button is-info">Change Shift</button>
         </form>

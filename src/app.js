@@ -15,6 +15,7 @@ import NewShift from './components/shifts/NewShift';
 import IndexRoute from './components/calendar/IndexRoute';
 import ShowRoute from './components/calendar/ShowRoute';
 import EditShift from './components/shifts/EditShift';
+import UserShow from './components/user/UserShow';
 
 class App extends React.Component {
   render() {
@@ -27,6 +28,7 @@ class App extends React.Component {
               <Route path ="/shifts/:id/edit" component={EditShift} />
               <Route path ="/shifts/new" component={NewShift} />
               <Route path ="/days/new" component={NewDay} />
+              <Route path ="/users/:id" component={UserShow} />
               <Route path ="/days/:id/edit" component={EditRoute} />
               <Route path ="/days/:id" component={ShowRoute} />
               <Route path ="/days" component={IndexRoute} />
