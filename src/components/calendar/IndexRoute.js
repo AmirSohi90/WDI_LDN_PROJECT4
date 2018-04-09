@@ -6,13 +6,22 @@ import { Link } from 'react-router-dom';
 class IndexRoute extends React.Component{
 
   state = {
-    day: [],
+    days: [],
     shifts: []
   }
 
   componentDidMount(){
+    const userId = Auth.getPayload().sub;
+    console.log(userId);
+    axios.get(`/api/users/${userId}`)
+      .then(res => this.setState({
+        user: res.data,
+        userId: res.data._id,
+        employer: res.data.employer
+      },
+      () => console.log('STATE', this.state)));
     axios.get('/api/days')
-      .then(res => this.setState({ day: res.data.days }, () => console.log('DATA', res.data)));
+      .then(res => this.setState({ days: res.data.days }, () => console.log('DATA', this.state)));
   }
 
   handleDelete = () => {
@@ -58,40 +67,66 @@ class IndexRoute extends React.Component{
     });
   }
 
+
   render(){
     return(
       <div className="container">
         <ul className="columns is-multiline">
-          {this.state.day.map((day, i) =>
-            <li key={i} className="column card is-half-desktop is-full-mobile">
-              <Link to={`days/${day._id}`}>
-                {day.dayOfTheWeek} - {day.date}
-              </Link>
-              {day.shifts.map((shift, i) =>
-                <div key={i}>
-                  <h1>{shift.employee.firstName} {shift.shiftType}</h1>
-                  {this.state.shifts.length < 2 ?
-                    <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
-                    :
-                    <p></p>
-                  }
+          <div className="column is-full-desktop">
+            {this.state.shifts.length === 1 &&
+              <h1>Change Shift: {this.state.shifts[0].employee.firstName} on {}</h1>
+            }
+            {this.state.shifts.length > 1 &&
+              <h1>Change Shift: {this.state.shifts[0].employee.firstName} {this.state.shifts[0].employee.lastName}s {this.state.shifts[0].shiftType} with {this.state.shifts[1].employee.firstName} {this.state.shifts[1].employee.lastName}s {this.state.shifts[1].shiftType}</h1>
+            }
+          </div>
+          {this.state.shifts.length === 2 &&
+            <form onSubmit={this.handleSubmit}>
+              <button className="button is-info">Change Shift</button>
+            </form>
+          }
+          {this.state.days.map((day, i) =>
+            <div key={i} className="card column is-full-desktop">
+              <li className="card-content">
+                <div>
+                  <Link className="title" to={`days/${day._id}`}>
+                    {day.dayOfTheWeek} - {day.date}
+                  </Link>
                 </div>
-              )}
-            </li>)}
+                <div className="column is-half-desktop">
+                  <h1 className="">Afternoon Shifts</h1>
+                  {day.shifts.map((shift, i) =>
+                    shift.shiftType === 'Afternoon Shift' &&
+                    <div key={i}>
+                      <h1>{shift.employee.firstName} {shift.shiftType}</h1>
+                      {this.state.shifts.length === 0 && this.state.userId === shift.employee._id &&
+                        <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
+                      }
+                      {this.state.shifts.length === 1 && this.state.userId !== shift.employee._id &&
+                        <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
+                      }
+                    </div>
+                  )}
+                </div>
+                <div className="column is-half-desktop">
+                  <h1>Evening Shifts</h1>
+                  {day.shifts.map((shift, i) =>
+                    shift.shiftType === 'Evening Shift' &&
+                    <div key={i}>
+                      <h1>{shift.employee.firstName} {shift.shiftType}</h1>
+                      {this.state.shifts.length === 0 && this.state.userId === shift.employee._id &&
+                        <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
+                      }
+                      {this.state.shifts.length === 1 && this.state.userId !== shift.employee._id &&
+                        <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
+                      }
+                    </div>
+                  )}
+                </div>
+              </li>
+            </div>
+          )}
         </ul>
-        {this.state.shifts.length === 1 ?
-          <h1>Change Shift: {this.state.shifts[0].employee.firstName} on {}</h1>
-          :
-          <p></p>
-        }
-        {this.state.shifts.length > 1 ?
-          <h1>Change Shift: {this.state.shifts[0].employee.firstName} {this.state.shifts[0].employee.lastName}s {this.state.shifts[0].shiftType} with {this.state.shifts[1].employee.firstName} {this.state.shifts[1].employee.lastName}s {this.state.shifts[1].shiftType}</h1>
-          :
-          <p></p>
-        }
-        <form onSubmit={this.handleSubmit}>
-          <button className="button is-info">Change Shift</button>
-        </form>
       </div>
     );
   }

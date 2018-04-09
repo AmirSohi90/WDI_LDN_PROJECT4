@@ -5,8 +5,8 @@ const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, han
     <div className="container">
       <ul className="columns is-multiline">
         {data.displayDays.map((day, i) =>
-          <li key={i} className="column is-one-third-desktop">
-            {day.dayOfTheWeek} - {day.date}
+          <li key={i} className="card column is-one-third-desktop">
+            <h1 className="title">{day.dayOfTheWeek} - {day.date}</h1>
             {day.shifts.map((shift, i) =>
               <h1 key={i}>{shift.employee.firstName} {shift.employee.lastName} - {shift.shiftType}</h1>
             )}

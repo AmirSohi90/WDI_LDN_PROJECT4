@@ -11,7 +11,6 @@ class Navbar extends React.Component{
 
   componentDidMount(){
     const userId = Auth.getPayload().sub;
-    console.log(userId);
     axios.get(`/api/users/${userId}`)
       .then(res => this.setState({ user: res.data, userId: res.data._id, employer: res.data.employer }, () => console.log(this.state)));
   }
@@ -54,7 +53,7 @@ class Navbar extends React.Component{
             {Auth.isAuthenticated() && this.state.employer && <Link className="navbar-item" to="/shifts/new">New Shift</Link>}
             {Auth.isAuthenticated() && <a className="navbar-item" onClick={this.handleLogout}>Logout</a>}
             {!Auth.isAuthenticated() && <Link className="navbar-item" to="/login">Login</Link>}
-            {!Auth.isAuthenticated() && <Link className="navbar-item" to="/register">Register</Link>}
+            {Auth.isAuthenticated() && this.state.employer && <Link className="navbar-item" to="/register">Register</Link>}
           </div>
         </div>
       </nav>

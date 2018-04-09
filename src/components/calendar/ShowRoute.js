@@ -11,8 +11,17 @@ class ShowRoute extends React.Component{
   }
 
   componentDidMount(){
+    const userId = Auth.getPayload().sub;
+    console.log('USERID', userId);
+    axios.get(`/api/users/${userId}`)
+      .then(res => this.setState({
+        user: res.data,
+        userId: res.data._id,
+        employer: res.data.employer
+      },
+      () => console.log('STATE', this.state)));
     axios.get(`/api/days/${this.props.match.params.id}`)
-      .then(res => this.setState({ day: res.data, shifts: res.data.shifts }, () => console.log(this.state)));
+      .then(res => this.setState({ day: res.data, shifts: res.data.shifts }, () => console.log('DATA', this.state)));
   }
 
   handleToggle = () => {
@@ -27,11 +36,10 @@ class ShowRoute extends React.Component{
   }
 
   deleteShift = (shift) => {
-    shift = this.props.match.params.id;
-    axios.delete(`/api/shifts/${shift}`, {
+    axios.delete(`/api/shifts/${shift._id}`, {
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
-      .then(() => this.props.history.push(`/api/days/${this.props.match.params.id}`));
+      .then(() => this.props.history.push(`/days/${this.props.match.params.id}`));
   }
 
   render(){
@@ -42,24 +50,28 @@ class ShowRoute extends React.Component{
           {this.state.shifts.map((shift, i) =>
             <li key={i} className="card-content">
               {shift.employee.firstName} {shift.employee.lastName} - {shift.shiftType}
-              <button className="button is-danger" onClick={() => this.deleteShift(shift)}>Delete</button>
+              {this.state.employer &&
+              <button className="button is-danger" onClick={() => this.deleteShift(shift)}>Delete Shift</button>
+              }
             </li>
           )}
         </ul>
-        {!this.state.isDeleted ?
-          <div>
-            <Link className="button is-primary" to={`/days/${this.props.match.params.id}/edit`}>Edit Day</Link>
-            {' '}
-            <button className="button is-danger" onClick={this.handleToggle}>Delete</button>
-          </div>
-          :
-          <div>
-            <h5 className="subtitle">Are you sure?</h5>
-            <button className="button is-primary" onClick={this.handleToggle}>No</button>
-            {' '}
-            <button className="button is-danger" onClick={this.deleteDay}>Yes</button>
-          </div>
-        }
+        {this.state.employer && <div>
+          {!this.state.isDeleted ?
+            <div>
+              <Link className="button is-primary" to={`/days/${this.props.match.params.id}/edit`}>Edit Day</Link>
+              {' '}
+              <button className="button is-danger" onClick={this.handleToggle}>Delete Day</button>
+            </div>
+            :
+            <div>
+              <h5 className="subtitle">Are you sure?</h5>
+              <button className="button is-primary" onClick={this.handleToggle}>No</button>
+              {' '}
+              <button className="button is-danger" onClick={this.deleteDay}>Yes</button>
+            </div>
+          }
+        </div>}
       </div>
     );
   }
