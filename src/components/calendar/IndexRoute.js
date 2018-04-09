@@ -21,17 +21,24 @@ class IndexRoute extends React.Component{
       .then(() => this.props.history.push('/days'));
   }
 
+  handleClick = (shift) => {
+    console.log(shift);
+  }
+
   render(){
     return(
       <div className="container">
         <ul className="columns is-multiline">
           {this.state.day.map((day, i) =>
-            <li key={i} className="column card is-one-fifth-desktop is-full-mobile">
+            <li key={i} className="column card is-half-desktop is-full-mobile">
               <Link to={`days/${day._id}`}>
                 {day.dayOfTheWeek} - {day.date}
               </Link>
               {day.shifts.map((shift, i) =>
-                <h1 key={i}>{shift.employee} - {shift.shiftType}</h1>
+                <div key={i}>
+                  <h1>{shift.employee} {shift.shiftType}</h1>
+                  <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
+                </div>
               )}
             </li>)}
         </ul>

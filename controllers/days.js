@@ -8,6 +8,7 @@ function indexRoute(req, res, next){
     .then(days => data.days = days)
     .then(() => {
       return User.find()
+        .populate('users')
         .then(users => {
           data.users = users;
           res.json(data);

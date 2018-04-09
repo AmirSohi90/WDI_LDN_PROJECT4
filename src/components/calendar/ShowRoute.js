@@ -30,16 +30,17 @@ class ShowRoute extends React.Component{
     return(
       <div className="container">
         <h1 className="title">{this.state.day.dayOfTheWeek} - {this.state.day.date}</h1>
-        <ul>
+        <ul className="card">
           {this.state.shifts.map((shift, i) =>
-            <li key={i}>
+            <li key={i} className="card-content">
               {shift.employee} - {shift.shiftType}
+              <Link className="button is-primary" to={''}>Edit Shift</Link>
             </li>
           )}
         </ul>
         {!this.state.isDeleted ?
           <div>
-            <Link className="button is-primary" to={`/days/${this.props.match.params.id}/edit`}>Edit</Link>
+            <Link className="button is-primary" to={`/days/${this.props.match.params.id}/edit`}>Edit Day</Link>
             {' '}
             <button className="button is-danger" onClick={this.handleToggle}>Delete</button>
           </div>
