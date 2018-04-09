@@ -14,6 +14,7 @@ import EditRoute from './components/days/EditRoute';
 import NewShift from './components/shifts/NewShift';
 import IndexRoute from './components/calendar/IndexRoute';
 import ShowRoute from './components/calendar/ShowRoute';
+import EditShift from './components/shifts/EditShift';
 
 class App extends React.Component {
   render() {
@@ -23,6 +24,7 @@ class App extends React.Component {
           <Navbar />
           <section className="section">
             <Switch>
+              <Route path ="/shifts/:id/edit" component={EditShift} />
               <Route path ="/shifts/new" component={NewShift} />
               <Route path ="/days/new" component={NewDay} />
               <Route path ="/days/:id/edit" component={EditRoute} />

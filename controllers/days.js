@@ -5,6 +5,13 @@ function indexRoute(req, res, next){
   const data = {};
   Day.find()
     .populate('shifts')
+    .populate({
+      path: 'shifts',
+      populate: {
+        path: 'employee',
+        model: 'User'
+      }
+    })
     .then(days => data.days = days)
     .then(() => {
       return User.find()
@@ -34,6 +41,13 @@ function updateRoute(req, res, next) {
 function showRoute(req, res, next) {
   return Day.findById(req.params.id)
     .populate('shifts')
+    .populate({
+      path: 'shifts',
+      populate: {
+        path: 'employee',
+        model: 'User'
+      }
+    })
     .then(day => res.json(day))
     .catch(next);
 }

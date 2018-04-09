@@ -17,6 +17,11 @@ router.route('/shifts')
   .get(shifts.index)
   .post(shifts.create);
 
+router.route('/shifts/:id')
+  .get(shifts.index)
+  .put(shifts.update)
+  .delete(shifts.delete);
+
 router.route('/users')
   .get(users.index);
 
