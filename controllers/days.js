@@ -12,6 +12,13 @@ function indexRoute(req, res, next){
         model: 'User'
       }
     })
+    .populate({
+      path: 'shifts',
+      populate: {
+        path: 'day',
+        model: 'Day'
+      }
+    })
     .then(days => data.days = days)
     .then(() => {
       return User.find()

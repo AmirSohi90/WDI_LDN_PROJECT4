@@ -3,6 +3,8 @@ import axios from 'axios';
 import Auth from '../../lib/Auth';
 import { Link } from 'react-router-dom';
 
+let chosenShifts = 0;
+
 class IndexRoute extends React.Component{
 
   state = {
@@ -32,8 +34,8 @@ class IndexRoute extends React.Component{
   }
 
   handleClick = (shift) => {
-    console.log(shift);
-    const chosenShifts = this.state.shifts.concat(shift);
+    chosenShifts = this.state.shifts.concat(shift);
+    console.log(chosenShifts);
     let updatedShift1 = {};
     let updatedShift2 = {};
     this.setState({ shifts: chosenShifts}, () => {
@@ -51,7 +53,7 @@ class IndexRoute extends React.Component{
       }
 
       const updatedShifts = [updatedShift1, updatedShift2];
-      this.setState({ updatedShifts: updatedShifts }, () => console.log(this.state.updatedShifts));
+      this.setState({ updatedShifts: updatedShifts }, () => console.log(this.state.shifts));
     });
   }
 
@@ -67,6 +69,10 @@ class IndexRoute extends React.Component{
     });
   }
 
+  handleReset = () => {
+    this.setState({ shifts: []});
+  }
+
 
   render(){
     return(
@@ -74,10 +80,16 @@ class IndexRoute extends React.Component{
         <ul className="columns is-multiline">
           <div className="column is-full-desktop">
             {this.state.shifts.length === 1 &&
-              <h1>Change Shift: {this.state.shifts[0].employee.firstName} on {}</h1>
+              <div>
+                <h1>Change Shift: {this.state.shifts[0].employee.firstName} on {}</h1>
+                <h1 className="button" onClick={this.handleReset}>Reset</h1>
+              </div>
             }
             {this.state.shifts.length > 1 &&
-              <h1>Change Shift: {this.state.shifts[0].employee.firstName} {this.state.shifts[0].employee.lastName}s {this.state.shifts[0].shiftType} with {this.state.shifts[1].employee.firstName} {this.state.shifts[1].employee.lastName}s {this.state.shifts[1].shiftType}</h1>
+              <div>
+                <h1>Change Shift: {this.state.shifts[0].employee.firstName} {this.state.shifts[0].employee.lastName}s {this.state.shifts[0].shiftType} on {this.state.shifts[0].day.dayOfTheWeek} - {this.state.shifts[0].day.date} with {this.state.shifts[0].employee.firstName} {this.state.shifts[1].employee.lastName}s {this.state.shifts[1].shiftType} on {this.state.shifts[1].day.dayOfTheWeek} - {this.state.shifts[1].day.date}</h1>
+                <h1 className="button" onClick={this.handleReset}>Reset</h1>
+              </div>
             }
           </div>
           {this.state.shifts.length === 2 &&
