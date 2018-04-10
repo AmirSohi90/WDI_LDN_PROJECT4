@@ -30,11 +30,12 @@ class UserShow extends React.Component{
       .then(res => this.setState({ day: res.data.days }));
 
     axios.get('/api/shifts')
-      .then(res => this.setState({ shifts: res.data.shifts }));
+      .then(res => this.setState({ shifts: res.data.shifts }, () => console.log(this.state)));
   }
 
   handleChangeShift = (request) => {
     console.log('Request to process', request);
+    this.setState({ status: 'Accepted'});
     const shifts = this.state.shifts.slice();
     // create new shift obj with switched user
     const shift1 = shifts.find(shift => request.shiftOne._id === shift._id);
@@ -78,8 +79,18 @@ class UserShow extends React.Component{
         <ul>
           {this.state.requests.map((request, i) =>
             <li key={i}>
-              {request.status} {request.userOne.firstName} change with {request.userTwo.firstName}
+              {request.userOne._id === this.state.userId &&
+              <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+              ||
+              request.userTwo._id === this.state.userId &&
+              <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+              ||
+              this.state.user.employer &&
+              <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+              }
+              {this.state.user.employer &&
               <button className="button" onClick={() => this.handleChangeShift(request)}>Accept Shift Swap</button>
+              }
             </li>
           )}
         </ul>
