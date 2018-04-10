@@ -111,6 +111,7 @@ class UserShow extends React.Component{
               {this.state.user.employer && request.status === 'Pending' &&
               <div>
                 <button className="button is-info" onClick={() => this.handleAcceptChange(request)}>Accept Shift Swap</button>
+                {' '}
                 <button className="button is-danger" onClick={() => this.handleDeclineShift(request)}>Decline Shift Swap</button>
               </div>
               }
