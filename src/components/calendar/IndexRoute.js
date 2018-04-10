@@ -113,7 +113,7 @@ class IndexRoute extends React.Component{
                   {day.shifts.map((shift, i) =>
                     shift.shiftType === 'Evening Shift' &&
                     <div key={i}>
-                      <h1>{shift.employee.firstName} {shift.shiftType}</h1>
+                      <h1>{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
                       {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
                       <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
                       }

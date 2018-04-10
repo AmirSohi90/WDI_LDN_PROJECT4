@@ -27,6 +27,9 @@ router.route('/requests/')
   .get(requests.index)
   .post(requests.create);
 
+router.route('/requests/:id')
+  .put(requests.update);
+
 router.route('/users')
   .get(users.index);
 

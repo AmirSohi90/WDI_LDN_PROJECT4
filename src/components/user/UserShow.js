@@ -33,16 +33,33 @@ class UserShow extends React.Component{
       .then(res => this.setState({ shifts: res.data.shifts }, () => console.log(this.state)));
   }
 
-  handleChangeShift = (request) => {
-    console.log('Request to process', request);
-    this.setState({ status: 'Accepted'});
+  handleAcceptShift = (request) => {
+    const acceptedRequest = Object.assign({}, request, { status: 'Accepted'});
+    axios.put(`/api/requests/${request._id}`, acceptedRequest)
+      .then(() => {
+        console.log(this.state);
+        axios.get('/api/days')
+          .then(res => this.setState({ day: res.data.days }));
+        this.handleAcceptChange(request);
+      });
+  }
+
+  handleDeclineShift = (request) => {
+    const declinedRequest = Object.assign({}, request, { status: 'Declined'});
+    axios.put(`/api/requests/${request._id}`, declinedRequest)
+      .then(() => {
+        console.log(this.state);
+        axios.get('/api/days')
+          .then(res => this.setState({ day: res.data.days }));
+      });
+  }
+
+  handleAcceptChange = (request) => {
     const shifts = this.state.shifts.slice();
-    // create new shift obj with switched user
     const shift1 = shifts.find(shift => request.shiftOne._id === shift._id);
     shift1.employee = request.shiftTwo.employee;
     axios.put(`/api/shifts/${shift1._id}`, shift1)
       .then(res => console.log('new shift 1', res.data));
-    // create other new shift obj with switched user
     const shift2 = shifts.find(shift => request.shiftTwo._id === shift._id);
     shift2.employee = request.shiftOne.employee;
     axios.put(`/api/shifts/${shift2._id}`, shift2)
@@ -51,7 +68,6 @@ class UserShow extends React.Component{
         axios.get('/api/days')
           .then(res => this.setState({ day: res.data.days }));
       });
-    // this.setState({ shiftOne: { employee: employee2._id}, shiftTwo: { employee: employee1._id}  });
   }
 
   render(){
@@ -76,24 +92,69 @@ class UserShow extends React.Component{
               )}
             </li>)}
         </ul>
-        <ul>
+        <div className="columns is-multiline">
+          <h1 className="title column is-full-desktop">Pending Shift Changes</h1>
+        </div>
+        <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
-            <li key={i}>
-              {request.userOne._id === this.state.userId &&
-              <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
-              ||
-              request.userTwo._id === this.state.userId &&
-              <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
-              ||
-              this.state.user.employer &&
-              <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+            request.status === 'Pending' &&
+            <div className="column is-full-desktop card" key={i}>
+              {request.userOne._id === this.state.userId && request.status === 'Pending' &&
+                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                ||
+                request.userTwo._id === this.state.userId && request.status === 'Pending' &&
+                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                ||
+                this.state.user.employer && request.status === 'Pending' &&
+                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
               }
-              {this.state.user.employer &&
-              <button className="button" onClick={() => this.handleChangeShift(request)}>Accept Shift Swap</button>
+              {this.state.user.employer && request.status === 'Pending' &&
+              <div>
+                <button className="button is-info" onClick={() => this.handleAcceptChange(request)}>Accept Shift Swap</button>
+                <button className="button is-danger" onClick={() => this.handleDeclineShift(request)}>Decline Shift Swap</button>
+              </div>
               }
-            </li>
+            </div>
           )}
-        </ul>
+        </div>
+        <div className="columns is-multiline">
+          <h1 className="title column is-full-desktop">Accepted Shift Changes</h1>
+        </div>
+        <div className="columns is-multiline">
+          {this.state.requests.map((request, i) =>
+            request.status === 'Accepted' &&
+            <div className="column is-full-desktop card" key={i}>
+              {request.userOne._id === this.state.userId && request.status === 'Accepted' &&
+                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                ||
+                request.userTwo._id === this.state.userId && request.status === 'Accepted' &&
+                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                ||
+                this.state.user.employer && request.status === 'Accepted' &&
+                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+              }
+            </div>
+          )}
+        </div>
+        <div className="columns is-multiline">
+          <h1 className="title column is-full-desktop">Declined Shift Changes</h1>
+        </div>
+        <div className="columns is-multiline">
+          {this.state.requests.map((request, i) =>
+            request.status === 'Declined' &&
+            <div className="column is-full-desktop card" key={i}>
+              {request.userOne._id === this.state.userId && request.status === 'Declined' &&
+                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                ||
+                request.userTwo._id === this.state.userId && request.status === 'Declined' &&
+                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                ||
+                this.state.user.employer && request.status === 'Declined' &&
+                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+              }
+            </div>
+          )}
+        </div>
       </div>
     );
   }
