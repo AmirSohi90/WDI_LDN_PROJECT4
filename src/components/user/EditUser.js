@@ -11,7 +11,8 @@ class EditUser extends React.Component{
     email: '',
     jobRole: '',
     employer: '',
-    password: ''
+    password: '',
+    errors: {}
   }
 
   componentDidMount(){
@@ -20,7 +21,8 @@ class EditUser extends React.Component{
   }
 
   handleChange = ({ target: { name, value }  }) => {
-    this.setState({ [name]: value }, () => console.log(this.state));
+    const errors = Object.assign({}, this.state.errors, { [name]: ''});
+    this.setState({ [name]: value, errors }, () => console.log(this.state));
   }
 
   handleSubmit = (e) => {
@@ -32,7 +34,8 @@ class EditUser extends React.Component{
       headers: { Authorization: `Bearer ${Auth.getToken()}` },
       data: this.state
     })
-      .then(() => this.props.history.push('/days'));
+      .then(() => this.props.history.push('/days'))
+      .catch(err => this.setState({errors: err.response.data.errors}));
   }
 
   render() {
@@ -46,6 +49,7 @@ class EditUser extends React.Component{
             onChange={this.handleChange}
             value={this.state.username}
           />
+          {this.state.errors.username && <small>{this.state.errors.username}</small>}
         </div>
         <div className="field">
           <label htmlFor="firstname">First Name</label>
@@ -55,6 +59,7 @@ class EditUser extends React.Component{
             onChange={this.handleChange}
             value={this.state.firstName}
           />
+          {this.state.errors.firstName && <small>{this.state.errors.firstName}</small>}
         </div>
         <div className="field">
           <label htmlFor="lastname">Last Name</label>
@@ -64,6 +69,7 @@ class EditUser extends React.Component{
             onChange={this.handleChange}
             value={this.state.firstName}
           />
+          {this.state.errors.lastName && <small>{this.state.errors.lastName}</small>}
         </div>
         <div className="field">
           <label htmlFor="email">Email</label>
@@ -74,6 +80,7 @@ class EditUser extends React.Component{
             onChange={this.handleChange}
             value={this.state.email}
           />
+          {this.state.errors.email && <small>{this.state.errors.email}</small>}
         </div>
         <div className="field">
           <label htmlFor="jobRole">Job Role</label>
@@ -84,6 +91,7 @@ class EditUser extends React.Component{
             value={this.state.jobRole}
           />
         </div>
+        {this.state.errors.jobRole && <small>{this.state.errors.jobRole}</small>}
 
         <button className="button is-primary">Submit</button>
       </form>
