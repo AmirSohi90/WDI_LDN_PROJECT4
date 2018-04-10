@@ -13,8 +13,8 @@ class UserShow extends React.Component{
   }
 
   componentDidMount(){
-    axios.get(`/api/users/${this.props.match.params.id}`)
-      .then(res => this.setState({ user: res.data }));
+    // axios.get(`/api/users/${this.props.match.params.id}`)
+    //   .then(res => this.setState({ user: res.data }));
     const userId = Auth.getPayload().sub;
     axios.get(`/api/users/${userId}`)
       .then(res => this.setState({
@@ -97,7 +97,7 @@ class UserShow extends React.Component{
         </div>
         <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
-            request.status === 'Pending' &&
+            request.status === 'Pending' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee || this.state.employer) &&
             <div className="column is-full-desktop card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Pending' &&
                 <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
@@ -123,7 +123,7 @@ class UserShow extends React.Component{
         </div>
         <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
-            request.status === 'Accepted' &&
+            request.status === 'Accepted' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
             <div className="column is-full-desktop card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Accepted' &&
                 <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
@@ -142,7 +142,7 @@ class UserShow extends React.Component{
         </div>
         <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
-            request.status === 'Declined' &&
+            request.status === 'Declined' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
             <div className="column is-full-desktop card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Declined' &&
                 <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
