@@ -34,17 +34,16 @@ class UserIndex extends React.Component{
       <div className="container">
         <div className="columns card is-multiline">
           {this.state.users.map((user, i) =>
-            <h1 key={i} className="column card is-full-desktop">
-              {user.firstName} {user.lastName} - {user.jobRole}
+            <div key={i} className="column card is-full-desktop">
+              <h1 className="subtitle">{user.firstName} {user.lastName} - {user.jobRole}</h1>
               {this.state.employer &&
                 <div>
-                  <Link className="button" to={`users/${user._id}/edit`}>
-                  Edit
-                  </Link>
+                  <Link className="button" to={`users/${user._id}/edit`}>Edit</Link>
+                  {' '}
                   <li className="button is-danger" onClick={() => this.deleteEmployee(user)}>Delete</li>
                 </div>
               }
-            </h1>
+            </div>
           )}
         </div>
       </div>

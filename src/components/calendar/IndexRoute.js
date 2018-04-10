@@ -79,13 +79,11 @@ class IndexRoute extends React.Component{
                 <h1 className="subtitle">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
                 <h1 className="subtitle">With: {this.state.shiftTwo.employee.firstName} {this.state.shiftTwo.employee.lastName} on {this.state.shiftTwo.day.dayOfTheWeek} - {this.state.shiftTwo.day.date}</h1>
                 <h1 className="button" onClick={this.handleReset}>Reset</h1>
+                {this.state.shiftTwo &&
+                    <button className="button is-info" onClick={this.handleSubmit}>Change Shift</button>
+                }
               </div>
             }
-            <form onSubmit={this.handleSubmit}>
-              {this.state.shiftTwo &&
-              <button className="button is-info">Change Shift</button>
-              }
-            </form>
           </div>
           {this.state.days.map((day, i) =>
             <div key={i} className="card column is-half-desktop">
