@@ -59,7 +59,7 @@ class IndexRoute extends React.Component{
   }
 
   handleReset = () => {
-    this.setState({ shifts: []}, () => console.log(this.state.shifts));
+    this.setState({ shiftOne: '', shiftTwo: '', shiftsRequested: 0});
   }
 
 
@@ -68,15 +68,16 @@ class IndexRoute extends React.Component{
       <div className="container">
         <ul className="columns is-multiline">
           <div className="column is-full-desktop">
-            {this.state.shifts.length === 1 &&
+            {this.state.shiftOne && !this.state.shiftTwo &&
               <div>
-                <h1 className="subtitle">Change Shift: {this.state.shifts[0].employee.firstName} {this.state.shifts[0].employee.lastName}s {this.state.shifts[0].shiftType} on {this.state.shifts[0].day.dayOfTheWeek} - {this.state.shifts[0].day.date} {}</h1>
+                <h1 className="subtitle">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
                 <h1 className="button" onClick={this.handleReset}>Reset</h1>
               </div>
-            }
-            {this.state.shifts.length > 1 &&
+            ||
+            this.state.shiftTwo &&
               <div>
-                <h1 className="subtitle">Change Shift: {this.state.shifts[0].employee.firstName} {this.state.shifts[0].employee.lastName}s {this.state.shifts[0].shiftType} on {this.state.shifts[0].day.dayOfTheWeek} - {this.state.shifts[0].day.date} with {this.state.shifts[0].employee.firstName} {this.state.shifts[1].employee.lastName}s {this.state.shifts[1].shiftType} on {this.state.shifts[1].day.dayOfTheWeek} - {this.state.shifts[1].day.date}</h1>
+                <h1 className="subtitle">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
+                <h1 className="subtitle">With: {this.state.shiftTwo.employee.firstName} {this.state.shiftTwo.employee.lastName} on {this.state.shiftTwo.day.dayOfTheWeek} - {this.state.shiftTwo.day.date}</h1>
                 <h1 className="button" onClick={this.handleReset}>Reset</h1>
               </div>
             }
@@ -87,7 +88,7 @@ class IndexRoute extends React.Component{
             </form>
           </div>
           {this.state.days.map((day, i) =>
-            <div key={i} className="card column is-full-desktop">
+            <div key={i} className="card column is-half-desktop">
               <li className="card-content">
                 <div>
                   <Link className="title" to={`days/${day._id}`}>
