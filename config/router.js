@@ -3,6 +3,7 @@ const users = require('../controllers/users');
 const auth = require('../controllers/auth');
 const days = require('../controllers/days');
 const shifts = require('../controllers/shifts');
+const requests = require('../controllers/requests');
 
 router.route('/days')
   .get(days.index)
@@ -21,6 +22,10 @@ router.route('/shifts/:id')
   .get(shifts.index)
   .put(shifts.update)
   .delete(shifts.delete);
+
+router.route('/requests/')
+  .get(requests.index)
+  .post(requests.create);
 
 router.route('/users')
   .get(users.index);
