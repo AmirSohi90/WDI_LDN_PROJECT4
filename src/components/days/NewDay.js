@@ -7,11 +7,13 @@ class NewDay extends React.Component{
 
   state = {
     dayOfTheWeek: '',
-    date: ''
+    date: '',
+    errors: {}
   }
 
   handleChange = ({ target: { name, value }  }) => {
-    this.setState({ [name]: value }, () => console.log(this.state));
+    const errors = Object.assign({}, this.state.errors, { [name]: ''});
+    this.setState({ [name]: value, errors }, () => console.log(this.state));
   }
 
   handleSubmit = (e) => {
@@ -23,7 +25,8 @@ class NewDay extends React.Component{
       headers: { Authorization: `Bearer ${Auth.getToken()}` },
       data: this.state
     })
-      .then(() => this.props.history.push('/shifts/new'));
+      .then(() => this.props.history.push('/shifts/new'))
+      .catch(err => this.setState({errors: err.response.data.errors}));
   }
 
   render() {

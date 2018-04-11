@@ -35,13 +35,6 @@ class ShowRoute extends React.Component{
       .then(() => this.props.history.push('/days'));
   }
 
-  deleteShift = (shift) => {
-    axios.delete(`/api/shifts/${shift._id}`, {
-      headers: {Authorization: `Bearer ${Auth.getToken()}`}
-    })
-      .then(() => this.props.history.push(`/days/${this.props.match.params.id}`));
-  }
-
   render(){
     return(
       <div className="container">
@@ -50,9 +43,6 @@ class ShowRoute extends React.Component{
           {this.state.shifts.map((shift, i) =>
             <li key={i} className="card-content">
               {shift.employee.firstName} {shift.employee.lastName} - {shift.shiftType}
-              {this.state.employer &&
-              <button className="button is-danger" onClick={() => this.deleteShift(shift)}>Delete Shift</button>
-              }
             </li>
           )}
         </ul>

@@ -30,6 +30,7 @@ const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, han
                     <Link className="button" to="/days/new">Click here if you cant find a day</Link>
                   </div>
                 </ul>
+                {data.errors.day && <small>{data.errors.day}</small>}
                 <h1 className="subtitle"><strong>Select Employee: {data.employee.firstName} {data.employee.lastName} - {data.employee.jobRole}</strong></h1>
                 <ul className="columns is-multiline">
                   {data.displayEmployees.map((staff, i) =>
@@ -38,6 +39,7 @@ const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, han
                     </div>
                   )}
                 </ul>
+                {data.errors.employee && <small>{data.errors.employee}</small>}
                 <h1 className="subtitle"><strong>Select Shift Type: {data.shiftType}</strong></h1>
                 <input name="shift" type="radio" value="Afternoon Shift" onClick={handleShiftType}/>
                 <label>Afternoon Shift</label>
@@ -45,6 +47,7 @@ const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, han
                 <input name="shift" type="radio" value="Evening Shift" onClick={handleShiftType}/>
                 <label>Evening Shift</label>
               </div>
+              {data.errors.shiftType && <small>{data.errors.shiftType}</small>}
             </div>
           </div>
         </div>

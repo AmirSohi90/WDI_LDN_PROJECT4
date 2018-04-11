@@ -18,6 +18,7 @@ const DayForm = ({ handleChange, handleSubmit, data }) => {
                   <option value="Saturday">Saturday</option>
                   <option value="Sunday">Sunday</option>
                 </select>
+                {data.errors.dayOfTheWeek && <small>{data.errors.dayOfTheWeek}</small>}
               </div>
             </div>
           </div>
@@ -34,6 +35,7 @@ const DayForm = ({ handleChange, handleSubmit, data }) => {
                 onChange={handleChange}
                 value={data.date}
               />
+              {data.errors.date && <small>{data.errors.date}</small>}
             </div>
           </div>
         </div>

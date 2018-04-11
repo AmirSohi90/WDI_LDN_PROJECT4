@@ -21,15 +21,18 @@ class NewShift extends React.Component{
   }
 
   handleDayChange = (day) => {
-    this.setState({ day: day }, () => console.log('State', this.state));
+    const errors = Object.assign({}, this.state.errors, { day: '' });
+    this.setState({ day: day, errors: errors }, () => console.log('State', this.state));
   }
 
   handleEmployeeChange = (staff) => {
-    this.setState({ employee: staff}, () => console.log('Employee', this.state));
+    const errors = Object.assign({}, this.state.errors, { employee: '' });
+    this.setState({ employee: staff, errors: errors}, () => console.log('Employee', this.state));
   }
 
   handleShiftType = (e) => {
-    this.setState({ shiftType: e.target.value}, () => console.log('Shift', this.state));
+    const errors = Object.assign({}, this.state.errors, { shiftType: '' });
+    this.setState({ shiftType: e.target.value, errors: errors}, () => console.log('Shift', this.state));
   }
 
   handleSubmit = () => {

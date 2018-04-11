@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const daySchema = new mongoose.Schema({
-  dayOfTheWeek: { type: String, required: true },
-  date: { type: String, required: true, unique: true }
+  dayOfTheWeek: { type: String, required: 'Day of the week is required.' },
+  date: { type: String, required: 'Date is required.', unique: true }
 });
 
 daySchema

@@ -10,7 +10,8 @@ class NewShift extends React.Component{
     employee: '',
     day: '',
     displayDays: [],
-    displayEmployees: []
+    displayEmployees: [],
+    errors: {}
   }
 
   componentDidMount(){
@@ -19,18 +20,22 @@ class NewShift extends React.Component{
   }
 
   handleDayChange = (day) => {
-    this.setState({ day: day }, () => console.log('State', this.state));
+    const errors = Object.assign({}, this.state.errors, { day: '' });
+    this.setState({ day: day, errors: errors }, () => console.log('State', this.state));
   }
 
   handleEmployeeChange = (staff) => {
-    this.setState({ employee: staff}, () => console.log('Employee', this.state));
+    const errors = Object.assign({}, this.state.errors, { employee: '' });
+    this.setState({ employee: staff, errosr: errors}, () => console.log('Employee', this.state));
   }
 
   handleShiftType = (e) => {
-    this.setState({ shiftType: e.target.value}, () => console.log('Shift', this.state));
+    const errors = Object.assign({}, this.state.errors, { shiftType: '' });
+    this.setState({ shiftType: e.target.value, errors: errors}, () => console.log('Shift', this.state));
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
 
     axios({
       method: 'POST',
@@ -39,7 +44,8 @@ class NewShift extends React.Component{
       data: this.state
     })
       .then(() => this.props.history.push('/shifts/new'))
-      .then(() => console.log(this.state));
+      .then(() => console.log(this.state))
+      .catch(err => this.setState({errors: err.response.data.errors}));
   }
 
   render() {
