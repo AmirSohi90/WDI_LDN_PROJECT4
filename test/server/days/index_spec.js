@@ -43,4 +43,17 @@ describe('GET /days', () => {
       });
   });
 
+  it('should return the correct data', done => {
+    api
+      .get('/api/days')
+      .end((err, res) => {
+        res.body = res.body.days.sort((a, b) => a.name > b.name);
+        res.body.forEach((day, i) => {
+          expect(day.dayOfTheWeek).to.eq(dayData[i].dayOfTheWeek);
+          expect(day.date).to.eq(dayData[i].date);
+        });
+        done();
+      });
+  });
+
 });
