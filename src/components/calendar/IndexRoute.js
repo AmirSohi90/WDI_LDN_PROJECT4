@@ -11,6 +11,7 @@ class IndexRoute extends React.Component{
     shiftsRequested: 0
   }
 
+
   componentDidMount(){
     const userId = Auth.getPayload().sub;
     console.log(userId);
@@ -64,6 +65,7 @@ class IndexRoute extends React.Component{
 
 
   render(){
+
     return(
       <div className="container">
         <ul className="columns is-multiline">
@@ -86,40 +88,60 @@ class IndexRoute extends React.Component{
             }
           </div>
           {this.state.days.map((day, i) =>
-            <div key={i} className="card column is-half-desktop">
+            <div key={i} className="card calendar-index-date-box column is-full-desktop">
               <li className="card-content">
                 <div>
-                  <Link className="title" to={`days/${day._id}`}>
+                  <h1 className="calendar-index-date"><Link to={`days/${day._id}`}>
                     {day.dayOfTheWeek} - {day.date}
-                  </Link>
+                  </Link></h1>
                 </div>
-                <div className="column is-half-desktop">
-                  <h1 className="subtitle is-size-4">Afternoon Shifts</h1>
-                  {day.shifts.map((shift, i) =>
-                    shift.shiftType === 'Afternoon Shift' &&
-                    <div key={i}>
-                      <h1>{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
-                      {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
-                      <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
-                      }
-                      {this.state.shiftsRequested === 1 && this.state.userId !== shift.employee._id &&
-                        <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />}
-                    </div>
-                  )}
-                </div>
-                <div className="column is-half-desktop">
-                  <h1 className="subtitle is-size-4">Evening Shifts</h1>
-                  {day.shifts.map((shift, i) =>
-                    shift.shiftType === 'Evening Shift' &&
-                    <div key={i}>
-                      <h1>{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
-                      {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
-                      <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />
-                      }
-                      {this.state.shiftsRequested === 1 && this.state.userId !== shift.employee._id &&
-                        <input type="checkbox" value={shift} onClick={() => this.handleClick(shift)} />}
-                    </div>
-                  )}
+                <div className="columns is-multiline is-mobile">
+                  <div className="column is-half-desktop is-full-mobile">
+                    <h1 className="calendar-index-shift-title">Afternoon Shifts</h1>
+                    {day.shifts.map((shift, i) =>
+                      shift.shiftType === 'Afternoon Shift' &&
+                      <div className="calendar-index-shift-box-border columns is-multiline is-mobile" key={i}>
+                        <div className="column is-full-desktop is-full-mobile">
+                          <div className="columns is-multiline is-mobile">
+                            <div className="column is-three-quarters-desktop">
+                              <h1 className="calendar-index-employee">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
+                            </div>
+                            <div className="column is-one-quarter-desktop">
+                              {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
+                                <button className="button" value={shift} onClick={() => this.handleClick(shift)}>Check</button>
+                              }
+                              {this.state.shiftsRequested === 1 && this.state.userId !== shift.employee._id &&
+                                <button className="button" value={shift} onClick={() => this.handleClick(shift)}>Check</button>
+                              }
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <div className="column is-half-desktop">
+                    <h1 className="calendar-index-shift-title">Evening Shifts</h1>
+                    {day.shifts.map((shift, i) =>
+                      shift.shiftType === 'Evening Shift' &&
+                      <div className="columns is-multiline is-mobile" key={i}>
+                        <div className="column is-full-desktop is-full-mobile">
+                          <div className="columns is-multiline is-mobile">
+                            <div className="calendar-index-shift-employee-box column is-three-quarters-desktop">
+                              <h1 className="calendar-index-employee">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
+                            </div>
+                            <div className="column is-one-quarter-desktop">
+                              {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
+                                <button className="button" value={shift} onClick={() => this.handleClick(shift)}>Check</button>
+                              }
+                              {this.state.shiftsRequested === 1 && this.state.userId !== shift.employee._id &&
+                                <button className="button" value={shift} onClick={() => this.handleClick(shift)}>Check</button>
+                              }
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </li>
             </div>

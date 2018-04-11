@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ProtectedRoute from './components/common/ProtectedRoute';
 
 import 'bulma';
+import './assets/scss/style.scss';
 
 import Navbar from './components/common/Navbar';
 

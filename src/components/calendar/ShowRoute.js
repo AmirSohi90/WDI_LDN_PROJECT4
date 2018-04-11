@@ -39,13 +39,13 @@ class ShowRoute extends React.Component{
     return(
       <div className="container">
         <h1 className="title">{this.state.day.dayOfTheWeek} - {this.state.day.date}</h1>
-        <ul className="card">
+        <div className="card calendar-show-box">
           {this.state.shifts.map((shift, i) =>
-            <li key={i} className="card-content">
-              {shift.employee.firstName} {shift.employee.lastName} - {shift.shiftType}
-            </li>
+            <div key={i} className="card-content">
+              <h1>{shift.employee.firstName} {shift.employee.lastName} - {shift.shiftType}</h1>
+            </div>
           )}
-        </ul>
+        </div>
         {this.state.employer && <div>
           {!this.state.isDeleted ?
             <div>

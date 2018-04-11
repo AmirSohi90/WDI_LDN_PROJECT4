@@ -1,0 +1,38 @@
+.calendar-index-date-box{
+  margin-bottom: 2px;
+  .calendar-index-date{
+    text-align: center;
+    font-size: 35px;
+    color: black;
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+}
+
+.calendar-index-shift-title{
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.calendar-index-employee{
+  text-align: left;
+  font-size: 20px;
+}
+
+.calendar-index-shift-employee-box{
+  padding-left: 24px;
+}
+
+.calendar-index-shift-box-border {
+  border-right: 1px solid #e3e5e8;
+};
+
+@media only screen and (max-width: 768px) {
+  .calendar-index-shift-employee-box {
+    padding-left: 0;
+  }
+  .calendar-index-shift-box-border {
+    border-right: none;
+  };
+}
