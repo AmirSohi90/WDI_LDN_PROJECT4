@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 import 'bulma';
 
@@ -20,6 +21,7 @@ import UserIndex from './components/user/UserIndex';
 import EditUser from './components/user/EditUser';
 
 import NotFound from './components/common/NotFound';
+import FlashMessages from './components/common/FlashMessages';
 
 class App extends React.Component {
   render() {
@@ -27,10 +29,11 @@ class App extends React.Component {
       <BrowserRouter>
         <main>
           <Navbar />
+          <FlashMessages />
           <section className="section">
             <Switch>
               <Route path ="/shifts/:id/edit" component={EditShift} />
-              <Route path ="/shifts/new" component={NewShift} />
+              <ProtectedRoute path ="/shifts/new" component={NewShift} />
               <Route path ="/days/new" component={NewDay} />
               <Route path ="/users/:id/edit" component={EditUser} />
               <Route path ="/users/:id" component={UserShow} />
