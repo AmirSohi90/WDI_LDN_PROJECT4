@@ -13,8 +13,8 @@ class UserShow extends React.Component{
   }
 
   componentDidMount(){
-    // axios.get(`/api/users/${this.props.match.params.id}`)
-    //   .then(res => this.setState({ user: res.data }));
+    axios.get(`/api/users/${this.props.match.params.id}`)
+      .then(res => this.setState({ user: res.data }));
     const userId = Auth.getPayload().sub;
     axios.get(`/api/users/${userId}`)
       .then(res => this.setState({
@@ -34,10 +34,11 @@ class UserShow extends React.Component{
   }
 
   handleAcceptShift = (request) => {
+    console.log('clicked');
     const acceptedRequest = Object.assign({}, request, { status: 'Accepted'});
     axios.put(`/api/requests/${request._id}`, acceptedRequest)
-      .then(() => {
-        console.log(this.state);
+      .then(res => {
+        console.log('put request res', res.data);
         axios.get('/api/days')
           .then(res => this.setState({ day: res.data.days }));
         this.handleAcceptChange(request);
@@ -110,7 +111,7 @@ class UserShow extends React.Component{
               }
               {this.state.user.employer && request.status === 'Pending' &&
               <div>
-                <button className="button is-info" onClick={() => this.handleAcceptChange(request)}>Accept Shift Swap</button>
+                <button className="button is-info" onClick={() => this.handleAcceptShift(request)}>Accept Shift Swap</button>
                 {' '}
                 <button className="button is-danger" onClick={() => this.handleDeclineShift(request)}>Decline Shift Swap</button>
               </div>

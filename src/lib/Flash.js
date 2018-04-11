@@ -1,17 +1,17 @@
 class Flash {
 
-  static _messages = null;
+  _messages = null;
 
   static setMessage(type, message) {
     this._messages = this._messages || {};
     this._messages[type] = message;
   }
 
-  static getMessage() {
+  static getMessages() {
     return this._messages;
   }
 
-  static clearMessage() {
+  static clearMessages() {
     this._messages = null;
   }
 }

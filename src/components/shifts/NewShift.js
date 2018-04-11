@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 import ShiftForm from './ShiftForm';
+import Flash from '../../lib/Flash';
 
 class NewShift extends React.Component{
 
@@ -14,9 +15,18 @@ class NewShift extends React.Component{
     errors: {}
   }
 
+
+
   componentDidMount(){
     axios.get('/api/days')
       .then(res => this.setState({ displayDays: res.data.days, displayEmployees: res.data.users }, () => console.log(res.data)));
+    const userId = Auth.getPayload().sub;
+    axios.get(`/api/users/${userId}`)
+      .then(res => this.setState({
+        user: res.data,
+        userId: res.data._id,
+        employer: res.data.employer
+      }, () => console.log('STATE', this.state)));
   }
 
   handleDayChange = (day) => {
@@ -43,6 +53,11 @@ class NewShift extends React.Component{
       headers: { Authorization: `Bearer ${Auth.getToken()}` },
       data: this.state
     })
+      .then(() => {
+        axios.get('/api/days')
+          .then(res => this.setState({ day: res.data.days }, () => console.log('NEW REQUEST', this.state)));
+      })
+      .then(() => Flash.setMessage('info', 'Shift Created'))
       .then(() => this.props.history.push('/shifts/new'))
       .then(() => console.log(this.state))
       .catch(err => this.setState({errors: err.response.data.errors}));
@@ -50,6 +65,11 @@ class NewShift extends React.Component{
 
   render() {
     return (
+      <div className="container">
+        {!this.state.employer &&
+          <h1 className="title">You do not have access to this page</h1>
+        }
+        {this.state.employer &&
       <ShiftForm
         handleDayChange={this.handleDayChange}
         handleEmployeeChange={this.handleEmployeeChange}
@@ -57,6 +77,8 @@ class NewShift extends React.Component{
         handleSubmit={this.handleSubmit}
         data={this.state}
       />
+        }
+      </div>
     );
   }
 }

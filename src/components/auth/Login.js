@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
+import Flash from '../../lib/Flash';
 
 class Login extends React.Component{
 
@@ -18,6 +19,7 @@ class Login extends React.Component{
         console.log(res);
         Auth.setToken(res.data.token);
       })
+      .then(() => Flash.setMessage('success', 'Welcome back!'))
       .then(() => this.props.history.push('/days'));
   }
 

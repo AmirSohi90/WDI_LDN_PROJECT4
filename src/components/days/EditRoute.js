@@ -7,16 +7,25 @@ class EditDay extends React.Component{
 
   state = {
     dayOfTheWeek: '',
-    date: ''
+    date: '',
+    errors: {}
   }
 
   componentDidMount(){
     axios.get(`/api/days/${this.props.match.params.id}`)
       .then(res => this.setState(res.data, () => console.log(this.state)));
+    const userId = Auth.getPayload().sub;
+    axios.get(`/api/users/${userId}`)
+      .then(res => this.setState({
+        user: res.data,
+        userId: res.data._id,
+        employer: res.data.employer
+      }, () => console.log('STATE', this.state)));
   }
 
   handleChange = ({ target: { name, value }  }) => {
-    this.setState({ [name]: value }, () => console.log(this.state));
+    const errors = Object.assign({}, this.state.errors, { [name]: ''});
+    this.setState({ [name]: value, errors }, () => console.log(this.state));
   }
 
   handleSubmit = (e) => {
@@ -28,17 +37,23 @@ class EditDay extends React.Component{
       headers: { Authorization: `Bearer ${Auth.getToken()}` },
       data: this.state
     })
-      .then(() => this.props.history.push('/days'));
+      .then(() => this.props.history.push('/days'))
+      .catch(err => this.setState({errors: err.response.data.errors}));
   }
 
   render() {
     return (
       <div className="container">
-        <DayForm
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-          data={this.state}
-        />
+        {!this.state.employer &&
+          <h1 className="title">You do not have access to this page</h1>
+        }
+        {this.state.employer &&
+          <DayForm
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+            data={this.state}
+          />
+        }
       </div>
     );
   }

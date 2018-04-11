@@ -10,7 +10,8 @@ class NewShift extends React.Component{
     employee: '',
     day: '',
     displayDays: [],
-    displayEmployees: []
+    displayEmployees: [],
+    errors: {}
   }
 
   componentDidMount(){
@@ -18,6 +19,13 @@ class NewShift extends React.Component{
       .then(res => this.setState({ displayDays: res.data.days, displayEmployees: res.data.users }, () => console.log(res.data)));
     axios.get(`/api/shifts/${this.props.match.params.id}`)
       .then((res => this.setState(res.data, () => console.log(this.state))));
+    const userId = Auth.getPayload().sub;
+    axios.get(`/api/users/${userId}`)
+      .then(res => this.setState({
+        user: res.data,
+        userId: res.data._id,
+        employer: res.data.employer
+      }, () => console.log('STATE', this.state)));
   }
 
   handleDayChange = (day) => {
@@ -49,6 +57,11 @@ class NewShift extends React.Component{
 
   render() {
     return (
+      <div className="container">
+        {!this.state.employer &&
+          <h1 className="title">You do not have access to this page</h1>
+        }
+        {this.state.employer &&
       <ShiftForm
         handleDayChange={this.handleDayChange}
         handleEmployeeChange={this.handleEmployeeChange}
@@ -56,6 +69,8 @@ class NewShift extends React.Component{
         handleSubmit={this.handleSubmit}
         data={this.state}
       />
+        }
+      </div>
     );
   }
 }
