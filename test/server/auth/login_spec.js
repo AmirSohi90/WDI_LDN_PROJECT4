@@ -4,6 +4,9 @@ const User = require('../../../models/User');
 
 const userData = {
   username: 'test',
+  firstName: 'test',
+  lastName: 'test',
+  jobRole: 'test',
   email: 'test@test.com',
   password: 'test',
   passwordConfirmation: 'test'

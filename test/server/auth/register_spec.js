@@ -22,7 +22,7 @@ describe('POST /register', () => {
       .post('/api/register')
       .send(userData)
       .end((err, res) => {
-        expect(res.body.token.split('.').length).to.eq(3);
+        expect((res.body.token.split('.').length)).to.eq(3);
         done();
       });
   });

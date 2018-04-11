@@ -4,6 +4,7 @@ const auth = require('../controllers/auth');
 const days = require('../controllers/days');
 const shifts = require('../controllers/shifts');
 const requests = require('../controllers/requests');
+const secureRoute = require('../lib/secureRoute');
 
 router.route('/days')
   .get(days.index)
@@ -12,7 +13,7 @@ router.route('/days')
 router.route('/days/:id')
   .get(days.show)
   .put(days.update)
-  .delete(days.delete);
+  .delete(secureRoute, days.delete);
 
 router.route('/shifts')
   .get(shifts.index)
