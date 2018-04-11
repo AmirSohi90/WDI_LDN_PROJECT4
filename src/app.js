@@ -19,6 +19,8 @@ import UserShow from './components/user/UserShow';
 import UserIndex from './components/user/UserIndex';
 import EditUser from './components/user/EditUser';
 
+import NotFound from './components/common/NotFound';
+
 class App extends React.Component {
   render() {
     return (
@@ -38,6 +40,7 @@ class App extends React.Component {
               <Route path ="/days" component={IndexRoute} />
               <Route path ="/Login" component={Login} />
               <Route path ="/register" component={Register} />
+              <Route component={NotFound} />
             </Switch>
           </section>
         </main>
