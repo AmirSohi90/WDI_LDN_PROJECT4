@@ -94,8 +94,8 @@ class UserShow extends React.Component{
     console.log('STATE', this.state[3]);
     return(
       <div className="container">
-        <div className="columns is-multiline">
-          <div className="column is-full-desktop">
+        <div className="columns is-multiline is-mobile user-show-info-box">
+          <div className="column is-full-desktop is-full-tablet is-full-mobile">
             <h1 className="title">Name: {this.state.user.firstName} {this.state.user.lastName}</h1>
           </div>
           <div className="column is-full-desktop">
@@ -104,29 +104,29 @@ class UserShow extends React.Component{
         </div>
         <ul className="columns is-multiline">
           {this.state.day.map((day, i) =>
-            <li key={i} className="card column is-full-desktop">
-              <h1 className="title is-size-4">{day.dayOfTheWeek} - {day.date}</h1>
+            <li key={i} className="card column is-full-desktop is-full-tablet is-full-mobile user-show-days">
+              <h1 className="subtitle is-size-4">{day.dayOfTheWeek} - {day.date}</h1>
               {day.shifts.map((shift, i) =>
                 shift.employee._id === this.state.userId &&
                 <h1 key={i} className="subtitle is-size-5">{shift.employee.firstName} {shift.employee.lastName} - {shift.shiftType}</h1>
               )}
             </li>)}
         </ul>
-        <div className="columns is-multiline">
-          <h1 className="title column is-full-desktop">Pending Shift Changes</h1>
+        <div className="columns user-show-request-title is-multiline is-mobile">
+          <h1 className="title column is-full-desktop is-full-tablet is-full-mobile">Pending Shift Changes</h1>
         </div>
-        <div className="columns is-multiline">
+        <div className="columns user-show-request-box is-multiline">
           {this.state.requests.map((request, i) =>
             request.status === 'Pending' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee || this.state.employer) &&
-            <div className="column is-full-desktop card" key={i}>
+            <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Pending' &&
-                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
                 ||
                 request.userTwo._id === this.state.userId && request.status === 'Pending' &&
-                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
                 ||
                 this.state.user.employer && request.status === 'Pending' &&
-                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
               }
               {this.state.user.employer && request.status === 'Pending' &&
               <div>
@@ -138,40 +138,40 @@ class UserShow extends React.Component{
             </div>
           )}
         </div>
-        <div className="columns is-multiline">
-          <h1 className="title column is-full-desktop">Accepted Shift Changes</h1>
+        <div className="columns user-show-request-title is-multiline">
+          <h1 className="title column is-full-desktop is-full-tablet is-full-mobile">Accepted Shift Changes</h1>
         </div>
         <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
             request.status === 'Accepted' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
-            <div className="column is-full-desktop card" key={i}>
+            <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Accepted' &&
-                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
                 ||
                 request.userTwo._id === this.state.userId && request.status === 'Accepted' &&
-                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
                 ||
                 this.state.user.employer && request.status === 'Accepted' &&
-                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
               }
             </div>
           )}
         </div>
-        <div className="columns is-multiline">
-          <h1 className="title column is-full-desktop">Declined Shift Changes</h1>
+        <div className="columns user-show-request-title is-multiline">
+          <h1 className="title column is-full-desktop is-full-tablet is-full-mobile">Declined Shift Changes</h1>
         </div>
         <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
             request.status === 'Declined' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
-            <div className="column is-full-desktop card" key={i}>
+            <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Declined' &&
-                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
                 ||
                 request.userTwo._id === this.state.userId && request.status === 'Declined' &&
-                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
                 ||
                 this.state.user.employer && request.status === 'Declined' &&
-                <h1>{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
               }
             </div>
           )}

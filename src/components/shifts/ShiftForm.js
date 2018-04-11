@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, handleSubmit, data }) => {
+
   return(
     <div className="container">
       <ul className="columns is-multiline">
@@ -19,24 +20,33 @@ const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, han
           <div className="column is-full-desktop">
             <div className="field">
               <div className="control">
-                <h1 className="subtitle"><strong>Select Day: {data.day.dayOfTheWeek} {data.day.date}</strong></h1>
                 <ul className="columns is-multiline">
                   {data.displayDays.map((day, i) =>
-                    <div key={i} className="column is-one-quarter-desktop">
-                      <li className="button is-info" onClick={() => handleDayChange(day)}>{day.dayOfTheWeek} {day.date}</li>
-                    </div>
+                    //if the day of the week === data.dayOfTheWeek the colour changes
+                    data.day !== day ?
+                      <div key={i} className="column is-one-quarter-desktop">
+                        <li className="button is-info" onClick={() => handleDayChange(day)}>{day.dayOfTheWeek} {day.date}</li>
+                      </div>
+                      :
+                      <div key={i} className="column is-one-quarter-desktop">
+                        <li className="button shift-form-selected" onClick={() => handleDayChange(day)}>{day.dayOfTheWeek} {day.date}</li>
+                      </div>
                   )}
                   <div className="column is-full-desktop">
                     <Link className="button" to="/days/new">Click here if you cant find a day</Link>
                   </div>
                 </ul>
                 {data.errors.day && <small>Please select a day</small>}
-                <h1 className="subtitle"><strong>Select Employee: {data.employee.firstName} {data.employee.lastName} - {data.employee.jobRole}</strong></h1>
                 <ul className="columns is-multiline">
                   {data.displayEmployees.map((staff, i) =>
-                    <div key={i} className="column is-one-quarter-desktop">
-                      <li value={staff} className="button is-info" onClick={() => handleEmployeeChange(staff)}>{staff.firstName} {staff.lastName} - {staff.jobRole}</li>
-                    </div>
+                    data.employee !== staff ?
+                      <div key={i} className="column is-one-quarter-desktop">
+                        <li value={staff} className="button is-info" onClick={() => handleEmployeeChange(staff)}>{staff.firstName} {staff.lastName} - {staff.jobRole}</li>
+                      </div>
+                      :
+                      <div key={i} className="column is-one-quarter-desktop">
+                        <li value={staff} className="button shift-form-selected" onClick={() => handleEmployeeChange(staff)}>{staff.firstName} {staff.lastName} - {staff.jobRole}</li>
+                      </div>
                   )}
                 </ul>
                 {data.errors.employee && <small>Please select an employee</small>}

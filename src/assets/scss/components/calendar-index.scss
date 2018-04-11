@@ -28,6 +28,12 @@
   border-right: 1px solid #e3e5e8;
 };
 
+.calendar-index-button{
+  background-color: #ebebeb;
+  border: none;
+  font-weight: bold;
+}
+
 @media only screen and (max-width: 768px) {
   .calendar-index-shift-employee-box {
     padding-left: 0;

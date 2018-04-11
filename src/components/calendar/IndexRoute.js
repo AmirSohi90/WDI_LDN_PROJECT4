@@ -103,15 +103,15 @@ class IndexRoute extends React.Component{
                       <div className="calendar-index-shift-box-border columns is-multiline is-mobile" key={i}>
                         <div className="column is-full-desktop is-full-mobile">
                           <div className="columns is-multiline is-mobile">
-                            <div className="column is-three-quarters-desktop">
+                            <div className="column is-two-thirds-desktop">
                               <h1 className="calendar-index-employee">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
                             </div>
-                            <div className="column is-one-quarter-desktop">
+                            <div className="column is-one-third-desktop">
                               {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
-                                <button className="button" value={shift} onClick={() => this.handleClick(shift)}>Check</button>
+                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Select Shift</button>
                               }
                               {this.state.shiftsRequested === 1 && this.state.userId !== shift.employee._id &&
-                                <button className="button" value={shift} onClick={() => this.handleClick(shift)}>Check</button>
+                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Select Shift</button>
                               }
                             </div>
                           </div>
@@ -126,15 +126,15 @@ class IndexRoute extends React.Component{
                       <div className="columns is-multiline is-mobile" key={i}>
                         <div className="column is-full-desktop is-full-mobile">
                           <div className="columns is-multiline is-mobile">
-                            <div className="calendar-index-shift-employee-box column is-three-quarters-desktop">
+                            <div className="calendar-index-shift-employee-box column is-two-thirds-desktop">
                               <h1 className="calendar-index-employee">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
                             </div>
-                            <div className="column is-one-quarter-desktop">
+                            <div className="column is-one-third-desktop">
                               {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
-                                <button className="button" value={shift} onClick={() => this.handleClick(shift)}>Check</button>
+                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Select Shift</button>
                               }
                               {this.state.shiftsRequested === 1 && this.state.userId !== shift.employee._id &&
-                                <button className="button" value={shift} onClick={() => this.handleClick(shift)}>Check</button>
+                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Select Shift</button>
                               }
                             </div>
                           </div>

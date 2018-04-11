@@ -4,7 +4,7 @@ const DayForm = ({ handleChange, handleSubmit, data }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="columns is-multiline is-mobile">
-        <div className="column is-full-desktop">
+        <div className="column is-full-desktop is-full-mobile is-full-tablet">
           <div className="field">
             <div className="control">
               <div className="select">
@@ -23,7 +23,7 @@ const DayForm = ({ handleChange, handleSubmit, data }) => {
             </div>
           </div>
         </div>
-        <div className="column is-full-desktop">
+        <div className="column is-full-desktop is-full-mobile is-full-tablet">
           <div className="field">
             <div className="control">
               <label htmlFor="date">Date</label>
@@ -41,7 +41,7 @@ const DayForm = ({ handleChange, handleSubmit, data }) => {
         </div>
       </div>
 
-      <button className="button is-primary">Submit</button>
+      <button className="button is-info">Submit</button>
     </form>
   );
 };
