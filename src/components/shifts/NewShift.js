@@ -55,7 +55,7 @@ class NewShift extends React.Component{
     })
       .then(() => {
         axios.get('/api/days')
-          .then(res => this.setState({ day: res.data.days }, () => console.log('NEW REQUEST', this.state)));
+          .then(res => this.setState({ displayDays: res.data.days, displayEmployees: res.data.users }));
       })
       .then(() => Flash.setMessage('info', 'Shift Created'))
       .then(() => this.props.history.push('/shifts/new'))

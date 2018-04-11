@@ -1,3 +1,19 @@
+// const userId = Auth.getPayload().sub;
+// const promiseArray = [
+//   axios.get(`/api/users/${this.props.match.params.id}`).then(res => res.data),
+//   axios.get(`/api/users/${userId}`).then(res => res.data),
+//   axios.get('/api/requests').then(res => res.data),
+//   axios.get('/api/days').then(res => res.data),
+//   axios.get('/api/shifts').then(res => res.data)
+// ];
+//
+// Promise.all(promiseArray)
+//   .then(res => {
+//     this.setState(res);
+//   })
+//   .catch(err => console.error(err));
+// import Promise from 'bluebird';
+
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
@@ -13,6 +29,7 @@ class UserShow extends React.Component{
   }
 
   componentDidMount(){
+
     axios.get(`/api/users/${this.props.match.params.id}`)
       .then(res => this.setState({ user: res.data }));
     const userId = Auth.getPayload().sub;
@@ -68,11 +85,13 @@ class UserShow extends React.Component{
         console.log('new shift 2', res.data);
         axios.get('/api/days')
           .then(res => this.setState({ day: res.data.days }));
+        axios.get('/api/requests')
+          .then(res => this.setState({ requests: res.data}));
       });
   }
 
   render(){
-    // console.log('STATE', this.state);
+    console.log('STATE', this.state[3]);
     return(
       <div className="container">
         <div className="columns is-multiline">
