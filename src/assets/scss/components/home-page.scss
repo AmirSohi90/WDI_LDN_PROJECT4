@@ -1,0 +1,26 @@
+.home-page-title{
+  font-family: 'Nunito', sans-serif;
+  font-size: 35px;
+  text-align: center;
+  color: black;
+}
+
+.home-page-paragraph{
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  color: black;
+}
+
+.home-page-login-wrap{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.home-page-login-button{
+  width: 50%;
+  background-color: #B99758;
+  font-weight: bold;
+    color: white;
+}

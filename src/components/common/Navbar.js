@@ -22,7 +22,7 @@ class Navbar extends React.Component{
 
   handleLogout = () => {
     Auth.logout();
-    this.props.history.push('/');
+    this.setState({ user: ''}, this.props.history.push('/'));
   }
 
   componentWillUpdate(){
@@ -34,7 +34,10 @@ class Navbar extends React.Component{
       <nav className="navbar">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-          Shwap
+            <img src="http://www.clker.com/cliparts/c/4/2/b/12161798851276328106czara1_Mixe_arrow.svg.med.png" alt="Shwap" />
+            {' '}
+            <strong>Shwap</strong>
+          &nbsp;
           </Link>
           {/* if the navbarIsOpen is true the navBar is active otherwise it's falsey */}
           <div
@@ -55,7 +58,7 @@ class Navbar extends React.Component{
             {Auth.isAuthenticated() && User.getUser().employer && <Link className="navbar-item" to="/users">All Employees</Link>}
             {Auth.isAuthenticated() && User.getUser().employer && <Link className="navbar-item" to="/register">Register an Employee</Link>}
             {Auth.isAuthenticated() && <a className="navbar-item" onClick={this.handleLogout}>Logout</a>}
-            {!Auth.isAuthenticated() && <Link className="navbar-item" to="/login">Login</Link>}
+            {!Auth.isAuthenticated() && <Link className="navbar-item" to="/login"><strong>Login</strong></Link>}
           </div>
         </div>
       </nav>
