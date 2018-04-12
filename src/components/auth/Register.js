@@ -43,7 +43,7 @@ class Register extends React.Component{
           <h1 className="title">You do not have access to this page</h1>
         }
         {this.state.employer &&
-        <form onSubmit={this.handleSubmit}>
+        <form className="register-form-wrap" onSubmit={this.handleSubmit}>
           <div className="field">
             <label htmlFor="username">Username</label>
             <input className="input"
@@ -113,7 +113,7 @@ class Register extends React.Component{
           </div>
           {this.state.errors.passwordConfirmation && <small>{this.state.errors.passwordConfirmation}</small>}
 
-          <button className="button is-primary">Submit</button>
+          <button className="button register-button">Submit</button>
         </form>
         }
       </div>

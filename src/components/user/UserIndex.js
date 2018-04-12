@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 class UserIndex extends React.Component{
 
@@ -29,7 +30,7 @@ class UserIndex extends React.Component{
   }
 
   render(){
-    // console.log('STATE', this.state);
+    const orderedEmployees = _.orderBy(this.state.users, ['lastName'], ['asc']);
     return(
       <div className="container">
         {!this.state.employer &&
@@ -37,12 +38,12 @@ class UserIndex extends React.Component{
         }
 
         {this.state.employer &&
-        <div className="columns user-index-wrap-box card is-multiline is-mobile">
-          {this.state.users.map((user, i) =>
-            <div key={i} className="column user-index-employee-box card is-full-desktop is-full-tablet is-full-mobile">
-              <h1 className="subtitle">{user.firstName} {user.lastName} - {user.jobRole}</h1>
+        <div className="columns user-index-wrap-box is-multiline is-mobile">
+          {orderedEmployees.map((user, i) =>
+            <div key={i} className="column user-index-employee-box card is-half-desktop is-half-tablet is-full-mobile">
+              <h1 className="user-index-employee-text">{user.firstName} {user.lastName} - {user.jobRole}</h1>
               {this.state.employer &&
-                <div>
+                <div className="user-index-buttons">
                   <Link className="button is-info" to={`users/${user._id}/edit`}>Edit</Link>
                   {' '}
                   <li className="button is-danger" onClick={() => this.deleteEmployee(user)}>Delete</li>

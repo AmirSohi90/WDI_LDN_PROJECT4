@@ -21,7 +21,7 @@ class FlashMessages extends React.Component {
     return (
       <div>
         {this.state.messages && Object.keys(this.state.messages).map(type =>
-          <div key={type} className={`notification is-${type}`}>{this.state.messages[type]}</div>
+          <div key={type} className="flash-bar">{this.state.messages[type]}</div>
         )}
       </div>
     );

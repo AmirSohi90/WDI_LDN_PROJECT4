@@ -1,0 +1,16 @@
+.flash-bar {
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  background-color: #B99758;
+  overflow-x: hidden;
+  height: 60px;
+  width: 100%;
+  animation: flash 2s forwards;
+  text-align: center;
+  line-height: 3em;
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  color: black;
+}
