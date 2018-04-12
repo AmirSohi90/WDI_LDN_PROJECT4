@@ -10,7 +10,7 @@ class IndexRoute extends React.Component{
     days: [],
     shifts: [],
     shiftsRequested: 0,
-    modelIsOpen: false
+    modalIsOpen: false
   }
 
 
@@ -42,7 +42,7 @@ class IndexRoute extends React.Component{
     if(this.state.shiftsRequested === 0){
       this.setState({ shiftOne: shift, shiftId: shift._id, userOne: shift.employee._id}, () => console.log(this.state));
     } else {
-      this.setState({ shiftTwo: shift, userTwo: shift.employee._id, modelIsOpen: true }, () => console.log(this.state));
+      this.setState({ shiftTwo: shift, userTwo: shift.employee._id, modalIsOpen: true }, () => console.log(this.state));
     }
   }
 
@@ -61,20 +61,20 @@ class IndexRoute extends React.Component{
   }
 
   handleReset = () => {
-    this.setState({ shiftOne: '', shiftTwo: '', shiftsRequested: 0, modelIsOpen: false});
+    this.setState({ shiftOne: '', shiftTwo: '', shiftsRequested: 0, modalIsOpen: false});
   }
 
   render(){
     const orderedDays = _.orderBy(this.state.days, ['date'], ['asc']);
     return(
       <div className="container">
-        {this.state.modelIsOpen && <div className="modal is-active">
+        {this.state.modalIsOpen && <div className="modal is-active">
           <div className="modal-background"></div>
           <div className="modal-content">
             {this.state.shiftTwo &&
-              <div>
-                <h1 className="text-is-white">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
-                <h1 className="text-is-white">With: {this.state.shiftTwo.employee.firstName} {this.state.shiftTwo.employee.lastName} on {this.state.shiftTwo.day.dayOfTheWeek} - {this.state.shiftTwo.day.date}</h1>
+              <div className="index-route-modal">
+                <h1 className="has-text-white">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
+                <h1 className="has-text-white">With: {this.state.shiftTwo.employee.firstName} {this.state.shiftTwo.employee.lastName} on {this.state.shiftTwo.day.dayOfTheWeek} - {this.state.shiftTwo.day.date}</h1>
                 <h1 className="button" onClick={this.handleReset}>Reset</h1>
                 {/* {this.state.shiftTwo && */}
                 <button className="button is-info" onClick={this.handleSubmit}>Change Shift</button>
