@@ -41,7 +41,7 @@ class UserIndex extends React.Component{
         <div className="columns user-index-wrap-box is-multiline is-mobile">
           {orderedEmployees.map((user, i) =>
             <div key={i} className="column user-index-employee-box card is-half-desktop is-half-tablet is-full-mobile">
-              <h1 className="user-index-employee-text">{user.firstName} {user.lastName} - {user.jobRole}</h1>
+              <h1 className="user-index-employee-text has-text-black">{user.firstName} {user.lastName} - {user.jobRole}</h1>
               {this.state.employer &&
                 <div className="user-index-buttons">
                   <Link className="button is-info" to={`users/${user._id}/edit`}>Edit</Link>
