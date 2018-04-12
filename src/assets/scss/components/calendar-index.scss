@@ -28,12 +28,20 @@
 
 .calendar-index-shift-box-border {
   border-right: 1px solid #e3e5e8;
-};
+}
+
+.calendar-index-shift-evening-border{
+  border-left: 1px solid #e3e5e8;
+}
 
 .calendar-index-button{
   background-color: #ebebeb;
   border: none;
   font-weight: bold;
+}
+
+.index-route-modal-text-wrap{
+  margin-bottom: 10px;
 }
 
 .index-route-modal-text{

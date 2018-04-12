@@ -20,6 +20,7 @@ import EditShift from './components/shifts/EditShift';
 import UserShow from './components/user/UserShow';
 import UserIndex from './components/user/UserIndex';
 import EditUser from './components/user/EditUser';
+import HomePage from './components/home/HomePage';
 
 import NotFound from './components/common/NotFound';
 import FlashMessages from './components/common/FlashMessages';
@@ -44,6 +45,7 @@ class App extends React.Component {
               <Route path ="/days" component={IndexRoute} />
               <Route path ="/Login" component={Login} />
               <Route path ="/register" component={Register} />
+              <Route path ="/" component={HomePage} />
               <Route component={NotFound} />
             </Switch>
           </section>

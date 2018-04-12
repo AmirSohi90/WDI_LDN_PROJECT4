@@ -35,15 +35,15 @@ const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, han
                   </div>
                   {orderedDays.map((day, i) =>
                     data.day !== day ?
-                      <div key={i} className="column is-one-quarter-desktop">
+                      <div key={i} className="column is-one-quarter-desktop is-full-mobile is-half-tablet">
                         <li className="button shift-form-buttons-unselected" onClick={() => handleDayChange(day)}>{day.dayOfTheWeek} {day.date}</li>
                       </div>
                       :
-                      <div key={i} className="column is-one-quarter-desktop">
+                      <div key={i} className="column is-one-quarter-desktop is-full-mobile is-half-tablet">
                         <li className="button shift-form-buttons-selected" onClick={() => handleDayChange(day)}>{day.dayOfTheWeek} {day.date}</li>
                       </div>
                   )}
-                  <div className="column is-full-desktop">
+                  <div className="column is-full-desktop is-full-mobile is-full-tablet">
                     <Link className="button shift-form-new-day-button" to="/days/new">Click here if you cant find a day</Link>
                   </div>
                   <div className="column is-full-desktop is-full-mobile is-full-tablet">
@@ -54,14 +54,17 @@ const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, han
                 <ul className="columns is-multiline">
                   {orderedEmployees.map((staff, i) =>
                     data.employee !== staff ?
-                      <div key={i} className="column is-one-quarter-desktop">
+                      <div key={i} className="column is-one-quarter-desktop is-full-mobile is-half-tablet">
                         <li value={staff} className="button shift-form-buttons-unselected" onClick={() => handleEmployeeChange(staff)}>{staff.firstName} {staff.lastName} - {staff.jobRole}</li>
                       </div>
                       :
-                      <div key={i} className="column is-one-quarter-desktop">
+                      <div key={i} className="column is-one-quarter-desktop is-full-mobile is-half-tablet">
                         <li value={staff} className="button shift-form-buttons-selected" onClick={() => handleEmployeeChange(staff)}>{staff.firstName} {staff.lastName} - {staff.jobRole}</li>
                       </div>
                   )}
+                  <div className="column is-full-desktop is-full-mobile is-full-tablet">
+                    <Link className="button shift-form-new-day-button" to="/register">Click here to add an Employee</Link>
+                  </div>
                 </ul>
                 {data.errors.employee && <small>Please select an employee</small>}
                 <div className="column is-full-desktop is-full-mobile is-full-tablet">

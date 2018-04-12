@@ -73,10 +73,12 @@ class IndexRoute extends React.Component{
           <div className="modal-content">
             {this.state.shiftTwo &&
               <div className="index-route-modal">
-                <h1 className="index-route-modal-text">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
-                <h1 className="index-route-modal-text">With: {this.state.shiftTwo.employee.firstName} {this.state.shiftTwo.employee.lastName} on {this.state.shiftTwo.day.dayOfTheWeek} - {this.state.shiftTwo.day.date}</h1>
+                <div className="index-route-modal-text-wrap">
+                  <h1 className="index-route-modal-text">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
+                  <h1 className="index-route-modal-text">With: {this.state.shiftTwo.employee.firstName} {this.state.shiftTwo.employee.lastName} on {this.state.shiftTwo.day.dayOfTheWeek} - {this.state.shiftTwo.day.date}</h1>
+                </div>
                 <div className="index-route-button-wrap">
-                  <h1 className="button" onClick={this.handleReset}>Reset</h1>
+                  <h1 className="button" onClick={this.handleReset}><strong>Reset</strong></h1>
                   <button className="button index-route-button-style" onClick={this.handleSubmit}>Change Shift</button>
                 </div>
               </div>
@@ -102,7 +104,7 @@ class IndexRoute extends React.Component{
                         <div className="column is-full-desktop is-full-mobile is-full-tablet">
                           <div className="columns is-multiline is-mobile">
                             <div className="column is-two-thirds-desktop is-two-thirds-mobile is-two-thirds-tablet">
-                              <h1 className="calendar-index-employee">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
+                              <h1 className="calendar-index-employee has-text-black">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
                             </div>
                             <div className="column is-one-third-desktop is-one-third-mobile is-one-third-tablet">
                               {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
@@ -118,14 +120,14 @@ class IndexRoute extends React.Component{
                     )}
                   </div>
                   <div className="column is-half-desktop">
-                    <h1 className="calendar-index-shift-title">Evening Shifts</h1>
+                    <h1 className="calendar-index-shift-title has-text-black">Evening Shifts</h1>
                     {day.shifts.map((shift, i) =>
                       shift.shiftType === 'Evening Shift' &&
-                      <div className="columns is-multiline is-mobile" key={i}>
+                      <div className="columns calendar-index-shift-evening-border is-multiline is-mobile" key={i}>
                         <div className="column is-full-desktop is-full-mobile is-full-tablet">
                           <div className="columns is-multiline is-mobile">
                             <div className="calendar-index-shift-employee-box column is-two-thirds-desktop">
-                              <h1 className="calendar-index-employee">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
+                              <h1 className="calendar-index-employee has-text-black">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
                             </div>
                             <div className="column is-one-third-desktop">
                               {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&

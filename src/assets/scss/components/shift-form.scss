@@ -70,4 +70,18 @@ ul.shift-form-date-wrap-box{
     border-radius: 10px;
     margin-bottom: 1px;
   }
+  .shift-form-buttons-unselected{
+    background-color: #eaeaea;
+    border: none;
+    color: black;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .shift-form-buttons-selected{
+    background-color: #4777b2;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+  }
 }
