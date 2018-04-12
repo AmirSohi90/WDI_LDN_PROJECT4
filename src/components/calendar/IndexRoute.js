@@ -73,11 +73,12 @@ class IndexRoute extends React.Component{
           <div className="modal-content">
             {this.state.shiftTwo &&
               <div className="index-route-modal">
-                <h1 className="has-text-white">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
-                <h1 className="has-text-white">With: {this.state.shiftTwo.employee.firstName} {this.state.shiftTwo.employee.lastName} on {this.state.shiftTwo.day.dayOfTheWeek} - {this.state.shiftTwo.day.date}</h1>
-                <h1 className="button" onClick={this.handleReset}>Reset</h1>
-                {/* {this.state.shiftTwo && */}
-                <button className="button is-info" onClick={this.handleSubmit}>Change Shift</button>
+                <h1 className="index-route-modal-text">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
+                <h1 className="index-route-modal-text">With: {this.state.shiftTwo.employee.firstName} {this.state.shiftTwo.employee.lastName} on {this.state.shiftTwo.day.dayOfTheWeek} - {this.state.shiftTwo.day.date}</h1>
+                <div className="index-route-button-wrap">
+                  <h1 className="button" onClick={this.handleReset}>Reset</h1>
+                  <button className="button index-route-button-style" onClick={this.handleSubmit}>Change Shift</button>
+                </div>
               </div>
             }
           </div>

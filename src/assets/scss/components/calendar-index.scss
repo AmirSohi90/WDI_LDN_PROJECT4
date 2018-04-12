@@ -36,6 +36,26 @@
   font-weight: bold;
 }
 
+.index-route-modal-text{
+  font-size: 25px;
+  font-family: 'Nunito', sans-serif;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.index-route-button-wrap{
+  display: flex;
+  justify-content: space-around;
+}
+
+.index-route-button-style{
+  background-color: #B99758;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
 @media only screen and (max-width: 1024px) {
   .calendar-index-shift-employee-box {
     padding-left: 0;

@@ -3,11 +3,6 @@ import React from 'react';
 const DayForm = ({ handleChange, handleSubmit, data }) => {
   return (
     <div className="container">
-      <div className="columns is-multiline is-mobile day-form-title">
-        <div className="column is-full-mobile is-full-desktop is-full-tablet">
-          <h1 className="day-form-title-text">Please Make a Day to Add to the Calendar</h1>
-        </div>
-      </div>
       <form onSubmit={handleSubmit}>
         <div className="columns day-form-wrap-box is-multiline is-mobile">
           <div className="column is-full-desktop is-full-mobile is-full-tablet">
@@ -45,7 +40,7 @@ const DayForm = ({ handleChange, handleSubmit, data }) => {
               </div>
             </div>
           </div>
-          <button className="button is-info day-form-button">Submit</button>
+          <button className="button day-form-button">Submit</button>
         </div>
 
       </form>

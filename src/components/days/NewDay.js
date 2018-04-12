@@ -45,16 +45,26 @@ class NewDay extends React.Component{
   render() {
     return (
       <div className="container">
-        {!this.state.employer &&
-          <h1 className="title">You do not have access to this page</h1>
-        }
-        {this.state.employer &&
-          <DayForm
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-            data={this.state}
-          />
-        }
+        <div>
+          {!this.state.employer &&
+            <h1 className="title">You do not have access to this page</h1>
+          }
+          {this.state.employer &&
+            <div>
+              <div className="columns is-multiline is-mobile day-form-title">
+                <div className="column is-full-mobile is-full-desktop is-full-tablet">
+                  <h1 className="day-form-title-text">Please Make a Day to Add to the Calendar</h1>
+                </div>
+              </div>
+              <DayForm
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                data={this.state}
+              />
+
+            </div>
+          }
+        </div>
       </div>
     );
   }
