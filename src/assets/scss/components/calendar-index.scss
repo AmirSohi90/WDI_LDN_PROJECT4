@@ -71,4 +71,23 @@
   .calendar-index-shift-box-border {
     border-right: none;
   };
+
+  .calendar-index-shift-evening-border{
+    border-left: none;
+  }
+
+  .calendar-index-date{
+    text-align: center;
+    font-size: 25px;
+    color: black;
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+
+  .calendar-index-shift-title{
+    text-align: center;
+    color: black;
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
 }
