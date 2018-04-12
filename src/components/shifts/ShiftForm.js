@@ -20,9 +20,8 @@ const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, han
           <div className="column is-full-desktop">
             <div className="field">
               <div className="control">
-                <ul className="columns is-multiline">
+                <div className="columns is-multiline">
                   {data.displayDays.map((day, i) =>
-                    //if the day of the week === data.dayOfTheWeek the colour changes
                     data.day !== day ?
                       <div key={i} className="column is-one-quarter-desktop">
                         <li className="button is-info" onClick={() => handleDayChange(day)}>{day.dayOfTheWeek} {day.date}</li>
@@ -35,7 +34,7 @@ const ShiftForm = ({ handleDayChange, handleEmployeeChange, handleShiftType, han
                   <div className="column is-full-desktop">
                     <Link className="button" to="/days/new">Click here if you cant find a day</Link>
                   </div>
-                </ul>
+                </div>
                 {data.errors.day && <small>Please select a day</small>}
                 <ul className="columns is-multiline">
                   {data.displayEmployees.map((staff, i) =>

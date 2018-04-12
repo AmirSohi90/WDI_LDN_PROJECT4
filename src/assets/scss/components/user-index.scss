@@ -1,0 +1,14 @@
+.user-index-wrap-box{
+  width: 80%;
+  margin: auto;
+}
+
+.user-index-employee-box{
+  margin-bottom: 1px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .user-index-wrap-box {
+    width: 80%;
+  }
+}

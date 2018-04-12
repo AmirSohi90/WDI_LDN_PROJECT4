@@ -1,5 +1,6 @@
 .calendar-index-date-box{
   margin-bottom: 2px;
+  border-radius: 20px;
   .calendar-index-date{
     text-align: center;
     font-size: 35px;
@@ -17,7 +18,7 @@
 
 .calendar-index-employee{
   text-align: left;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .calendar-index-shift-employee-box{
@@ -34,7 +35,7 @@
   font-weight: bold;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
   .calendar-index-shift-employee-box {
     padding-left: 0;
   }

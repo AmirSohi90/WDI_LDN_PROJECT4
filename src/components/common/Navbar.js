@@ -13,7 +13,7 @@ class Navbar extends React.Component{
   componentDidMount(){
     const userId = Auth.getPayload().sub;
     axios.get(`/api/users/${userId}`)
-      .then(res => this.setState({ user: res.data, userId: res.data._id, employer: res.data.employer }, () => console.log(User.getUser())));
+      .then(res => this.setState({ user: res.data, userId: userId, employer: res.data.employer }, () => console.log(User.getUser())));
   }
 
   handleToggle = () => {
@@ -52,6 +52,7 @@ class Navbar extends React.Component{
             {Auth.isAuthenticated() && <Link className="navbar-item" to={`/users/${this.state.userId}`}>My Profile</Link>}
             {Auth.isAuthenticated() && User.getUser().employer && <Link className="navbar-item" to="/days/new">New Day</Link>}
             {Auth.isAuthenticated() && User.getUser().employer && <Link className="navbar-item" to="/shifts/new">New Shift</Link>}
+            {Auth.isAuthenticated() && User.getUser().employer && <Link className="navbar-item" to="/users">All Employees</Link>}
             {Auth.isAuthenticated() && User.getUser().employer && <Link className="navbar-item" to="/register">Register an Employee</Link>}
             {Auth.isAuthenticated() && <a className="navbar-item" onClick={this.handleLogout}>Logout</a>}
             {!Auth.isAuthenticated() && <Link className="navbar-item" to="/login">Login</Link>}

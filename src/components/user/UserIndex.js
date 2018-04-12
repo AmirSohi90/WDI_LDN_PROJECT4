@@ -32,13 +32,18 @@ class UserIndex extends React.Component{
     // console.log('STATE', this.state);
     return(
       <div className="container">
-        <div className="columns card is-multiline">
+        {!this.state.employer &&
+          <h1 className="title">You do not have access to this page</h1>
+        }
+
+        {this.state.employer &&
+        <div className="columns user-index-wrap-box card is-multiline is-mobile">
           {this.state.users.map((user, i) =>
-            <div key={i} className="column card is-full-desktop">
+            <div key={i} className="column user-index-employee-box card is-full-desktop is-full-tablet is-full-mobile">
               <h1 className="subtitle">{user.firstName} {user.lastName} - {user.jobRole}</h1>
               {this.state.employer &&
                 <div>
-                  <Link className="button" to={`users/${user._id}/edit`}>Edit</Link>
+                  <Link className="button is-info" to={`users/${user._id}/edit`}>Edit</Link>
                   {' '}
                   <li className="button is-danger" onClick={() => this.deleteEmployee(user)}>Delete</li>
                 </div>
@@ -46,6 +51,7 @@ class UserIndex extends React.Component{
             </div>
           )}
         </div>
+        }
       </div>
     );
   }

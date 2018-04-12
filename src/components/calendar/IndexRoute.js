@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 
 class IndexRoute extends React.Component{
 
@@ -56,20 +57,19 @@ class IndexRoute extends React.Component{
       headers: { Authorization: `Bearer ${Auth.getToken()}` },
       data: this.state
     })
-      .then(() => this.props.history.push('/shifts/new'));
+      .then(() => this.props.history.push(`users/${this.state.userId}`));
   }
 
   handleReset = () => {
     this.setState({ shiftOne: '', shiftTwo: '', shiftsRequested: 0});
   }
 
-
   render(){
-
+    const orderedDays = _.orderBy(this.state.days, ['date'], ['asc']);
     return(
       <div className="container">
         <ul className="columns is-multiline">
-          <div className="column is-full-desktop">
+          <div className="column is-full-desktop is-full-mobile is-full-tablet">
             {this.state.shiftOne && !this.state.shiftTwo &&
               <div>
                 <h1 className="subtitle">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
@@ -87,8 +87,8 @@ class IndexRoute extends React.Component{
               </div>
             }
           </div>
-          {this.state.days.map((day, i) =>
-            <div key={i} className="card calendar-index-date-box column is-full-desktop">
+          {orderedDays.map((day, i) =>
+            <div key={i} className="card calendar-index-date-box column is-half-desktop is-full-mobile is-full-tablet">
               <li className="card-content">
                 <div>
                   <h1 className="calendar-index-date"><Link to={`days/${day._id}`}>
@@ -96,22 +96,22 @@ class IndexRoute extends React.Component{
                   </Link></h1>
                 </div>
                 <div className="columns is-multiline is-mobile">
-                  <div className="column is-half-desktop is-full-mobile">
+                  <div className="column is-half-desktop is-full-mobile is-full-tablet">
                     <h1 className="calendar-index-shift-title">Afternoon Shifts</h1>
                     {day.shifts.map((shift, i) =>
                       shift.shiftType === 'Afternoon Shift' &&
                       <div className="calendar-index-shift-box-border columns is-multiline is-mobile" key={i}>
-                        <div className="column is-full-desktop is-full-mobile">
+                        <div className="column is-full-desktop is-full-mobile is-full-tablet">
                           <div className="columns is-multiline is-mobile">
                             <div className="column is-two-thirds-desktop">
                               <h1 className="calendar-index-employee">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
                             </div>
                             <div className="column is-one-third-desktop">
                               {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
-                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Select Shift</button>
+                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Change</button>
                               }
                               {this.state.shiftsRequested === 1 && this.state.userId !== shift.employee._id &&
-                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Select Shift</button>
+                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Change</button>
                               }
                             </div>
                           </div>
@@ -124,17 +124,17 @@ class IndexRoute extends React.Component{
                     {day.shifts.map((shift, i) =>
                       shift.shiftType === 'Evening Shift' &&
                       <div className="columns is-multiline is-mobile" key={i}>
-                        <div className="column is-full-desktop is-full-mobile">
+                        <div className="column is-full-desktop is-full-mobile is-full-tablet">
                           <div className="columns is-multiline is-mobile">
                             <div className="calendar-index-shift-employee-box column is-two-thirds-desktop">
                               <h1 className="calendar-index-employee">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
                             </div>
                             <div className="column is-one-third-desktop">
                               {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
-                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Select Shift</button>
+                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Change</button>
                               }
                               {this.state.shiftsRequested === 1 && this.state.userId !== shift.employee._id &&
-                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Select Shift</button>
+                                <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Change</button>
                               }
                             </div>
                           </div>
