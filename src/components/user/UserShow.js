@@ -1,19 +1,3 @@
-// const userId = Auth.getPayload().sub;
-// const promiseArray = [
-//   axios.get(`/api/users/${this.props.match.params.id}`).then(res => res.data),
-//   axios.get(`/api/users/${userId}`).then(res => res.data),
-//   axios.get('/api/requests').then(res => res.data),
-//   axios.get('/api/days').then(res => res.data),
-//   axios.get('/api/shifts').then(res => res.data)
-// ];
-//
-// Promise.all(promiseArray)
-//   .then(res => {
-//     this.setState(res);
-//   })
-//   .catch(err => console.error(err));
-// import Promise from 'bluebird';
-
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
@@ -95,18 +79,18 @@ class UserShow extends React.Component{
   render(){
     return(
       <div className="container">
-        <div className="columns is-multiline is-mobile user-show-info-box">
+        <div className="columns is-multiline is-mobile">
           <div className="column is-full-desktop is-full-tablet is-full-mobile">
-            <h1 className="user-show-request-title">Name: {this.state.user.firstName} {this.state.user.lastName}</h1>
+            <h1 className="user-show-request-title has-text-black">Name: {this.state.user.firstName} {this.state.user.lastName}</h1>
           </div>
           <div className="column is-full-desktop">
-            <h1 className="user-show-request-title">Job Title: {this.state.user.jobRole}</h1>
+            <h1 className="user-show-request-title has-text-black">Job Title: {this.state.user.jobRole}</h1>
           </div>
         </div>
-        <ul className="columns is-multiline">
+        <ul className="columns is-multiline user-show-info-box">
           {this.state.day.map((day, i) =>
-            <li key={i} className="card column is-full-desktop is-full-tablet is-full-mobile user-show-days">
-              <h1 className="subtitle is-size-4">{day.dayOfTheWeek} - {day.date}</h1>
+            <li key={i} className="card column is-one-quarter-desktop is-full-tablet is-full-mobile user-show-days">
+              <h1 className="subtitle is-size-4 has-text-black">{day.dayOfTheWeek} - {day.date}</h1>
               {day.shifts.map((shift, i) =>
                 shift.employee._id === this.state.userId &&
                 <h1 key={i} className="subtitle is-size-5">{shift.employee.firstName} {shift.employee.lastName} - {shift.shiftType}</h1>
@@ -114,20 +98,20 @@ class UserShow extends React.Component{
             </li>)}
         </ul>
         <div className="columns user-show-request-title is-multiline is-mobile">
-          <h1 className="title column is-full-desktop is-full-tablet is-full-mobile">Pending Shift Changes</h1>
+          <h1 className="title column is-full-desktop is-full-tablet is-full-mobile has-text-black">Pending Shift Changes</h1>
         </div>
         <div className="columns user-show-request-box is-multiline">
           {this.state.requests.map((request, i) =>
             request.status === 'Pending' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee || this.state.employer) &&
             <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Pending' &&
-                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
                 ||
                 request.userTwo._id === this.state.userId && request.status === 'Pending' &&
-                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
                 ||
                 this.state.user.employer && request.status === 'Pending' &&
-                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
               }
               {this.state.user.employer && request.status === 'Pending' &&
               <div>
@@ -140,39 +124,39 @@ class UserShow extends React.Component{
           )}
         </div>
         <div className="columns user-show-request-title is-multiline">
-          <h1 className="title column is-full-desktop is-full-tablet is-full-mobile">Accepted Shift Changes</h1>
+          <h1 className="title column is-full-desktop is-full-tablet is-full-mobile has-text-black">Accepted Shift Changes</h1>
         </div>
         <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
             request.status === 'Accepted' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
             <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Accepted' &&
-                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
                 ||
                 request.userTwo._id === this.state.userId && request.status === 'Accepted' &&
-                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
                 ||
                 this.state.user.employer && request.status === 'Accepted' &&
-                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
               }
             </div>
           )}
         </div>
         <div className="columns user-show-request-title is-multiline">
-          <h1 className="title column is-full-desktop is-full-tablet is-full-mobile">Declined Shift Changes</h1>
+          <h1 className="title column is-full-desktop is-full-tablet is-full-mobile has-text-black">Declined Shift Changes</h1>
         </div>
         <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
             request.status === 'Declined' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
             <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Declined' &&
-                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
                 ||
                 request.userTwo._id === this.state.userId && request.status === 'Declined' &&
-                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
                 ||
                 this.state.user.employer && request.status === 'Declined' &&
-                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
               }
             </div>
           )}
