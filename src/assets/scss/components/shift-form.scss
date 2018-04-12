@@ -1,4 +1,41 @@
-.shift-form-selected{
-  background-color: white;
-  font-weight: 400;
+.shift-form-wrap-box{
+  margin-bottom: 5px;
+  .shift-form-title{
+    font-weight: 400;
+    font-size: 35px;
+  }
 }
+
+ul.shift-form-date-wrap-box{
+  margin-bottom: 40px!important;
+}
+
+.shift-form-date-title{
+  font-size: 30px;
+  margin-left: 5px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+}
+
+.shift-form-employee-text{
+  margin-left: 5px;
+  font-size: 18px;
+  font-family: 'Nunito', sans-serif;
+}
+
+@media only screen and (min-width: 1024px) {
+  .shift-form-shift-boxes{
+    width:32%!important;
+    margin:1px!important;
+    border-radius: 20px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .shift-form-shift-boxes{
+    border-radius: 10px;
+    margin-bottom: 1px;
+  }
+}
+
+// 4777b2

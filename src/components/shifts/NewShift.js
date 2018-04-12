@@ -40,8 +40,11 @@ class NewShift extends React.Component{
   }
 
   handleShiftType = (e) => {
+    console.log(e.target.value);
     const errors = Object.assign({}, this.state.errors, { shiftType: '' });
-    this.setState({ shiftType: e.target.value, errors: errors}, () => console.log('Shift', this.state));
+    this.setState({ shiftType: e.target.value, errors: errors}, () => this.state.shiftType === 0 ? this.setState({ shiftType: 'Afternoon Shift'}) : this.setState({ shiftType: 'Evening Shift'}));
+
+
   }
 
   handleSubmit = (e) => {

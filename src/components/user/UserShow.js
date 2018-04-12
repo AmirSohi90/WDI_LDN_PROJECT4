@@ -96,10 +96,10 @@ class UserShow extends React.Component{
       <div className="container">
         <div className="columns is-multiline is-mobile user-show-info-box">
           <div className="column is-full-desktop is-full-tablet is-full-mobile">
-            <h1 className="title">Name: {this.state.user.firstName} {this.state.user.lastName}</h1>
+            <h1 className="user-show-request-title">Name: {this.state.user.firstName} {this.state.user.lastName}</h1>
           </div>
           <div className="column is-full-desktop">
-            <h1 className="title">Job Title: {this.state.user.jobRole}</h1>
+            <h1 className="user-show-request-title">Job Title: {this.state.user.jobRole}</h1>
           </div>
         </div>
         <ul className="columns is-multiline">
