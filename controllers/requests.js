@@ -8,6 +8,20 @@ function requestsIndex(req, res, next) {
     .populate('userTwo')
     .populate('shiftOne')
     .populate('shiftTwo')
+    .populate({
+      path: 'shiftOne',
+      populate: {
+        path: 'day',
+        model: 'Day'
+      }
+    })
+    .populate({
+      path: 'shiftTwo',
+      populate: {
+        path: 'day',
+        model: 'Day'
+      }
+    })
     .then(requests => res.json(requests))
     .catch(next);
 }

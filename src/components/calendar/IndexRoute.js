@@ -9,7 +9,8 @@ class IndexRoute extends React.Component{
   state = {
     days: [],
     shifts: [],
-    shiftsRequested: 0
+    shiftsRequested: 0,
+    modelIsOpen: false
   }
 
 
@@ -41,9 +42,8 @@ class IndexRoute extends React.Component{
     if(this.state.shiftsRequested === 0){
       this.setState({ shiftOne: shift, shiftId: shift._id, userOne: shift.employee._id}, () => console.log(this.state));
     } else {
-      this.setState({ shiftTwo: shift, userTwo: shift.employee._id }, () => console.log(this.state));
+      this.setState({ shiftTwo: shift, userTwo: shift.employee._id, modelIsOpen: true }, () => console.log(this.state));
     }
-
   }
 
   handleSubmit = (e) => {
@@ -61,32 +61,29 @@ class IndexRoute extends React.Component{
   }
 
   handleReset = () => {
-    this.setState({ shiftOne: '', shiftTwo: '', shiftsRequested: 0});
+    this.setState({ shiftOne: '', shiftTwo: '', shiftsRequested: 0, modelIsOpen: false});
   }
 
   render(){
     const orderedDays = _.orderBy(this.state.days, ['date'], ['asc']);
     return(
       <div className="container">
-        <ul className="columns is-multiline">
-          <div className="column is-full-desktop is-full-mobile is-full-tablet">
-            {this.state.shiftOne && !this.state.shiftTwo &&
+        {this.state.modelIsOpen && <div className="modal is-active">
+          <div className="modal-background"></div>
+          <div className="modal-content">
+            {this.state.shiftTwo &&
               <div>
-                <h1 className="subtitle">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
+                <h1 className="text-is-white">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
+                <h1 className="text-is-white">With: {this.state.shiftTwo.employee.firstName} {this.state.shiftTwo.employee.lastName} on {this.state.shiftTwo.day.dayOfTheWeek} - {this.state.shiftTwo.day.date}</h1>
                 <h1 className="button" onClick={this.handleReset}>Reset</h1>
-              </div>
-            ||
-            this.state.shiftTwo &&
-              <div>
-                <h1 className="subtitle">Change Shift: {this.state.shiftOne.employee.firstName} {this.state.shiftOne.employee.lastName} on {this.state.shiftOne.day.dayOfTheWeek} - {this.state.shiftOne.day.date}</h1>
-                <h1 className="subtitle">With: {this.state.shiftTwo.employee.firstName} {this.state.shiftTwo.employee.lastName} on {this.state.shiftTwo.day.dayOfTheWeek} - {this.state.shiftTwo.day.date}</h1>
-                <h1 className="button" onClick={this.handleReset}>Reset</h1>
-                {this.state.shiftTwo &&
-                    <button className="button is-info" onClick={this.handleSubmit}>Change Shift</button>
-                }
+                {/* {this.state.shiftTwo && */}
+                <button className="button is-info" onClick={this.handleSubmit}>Change Shift</button>
               </div>
             }
           </div>
+        </div>
+        }
+        <ul className="columns is-multiline">
           {orderedDays.map((day, i) =>
             <div key={i} className="card calendar-index-date-box column is-half-desktop is-full-mobile is-full-tablet">
               <li className="card-content">
@@ -103,10 +100,10 @@ class IndexRoute extends React.Component{
                       <div className="calendar-index-shift-box-border columns is-multiline is-mobile" key={i}>
                         <div className="column is-full-desktop is-full-mobile is-full-tablet">
                           <div className="columns is-multiline is-mobile">
-                            <div className="column is-two-thirds-desktop">
+                            <div className="column is-two-thirds-desktop is-two-thirds-mobile is-two-thirds-tablet">
                               <h1 className="calendar-index-employee">{shift.employee.firstName} {shift.employee.lastName} - {shift.employee.jobRole}</h1>
                             </div>
-                            <div className="column is-one-third-desktop">
+                            <div className="column is-one-third-desktop is-one-third-mobile is-one-third-tablet">
                               {this.state.shiftsRequested === 0 && this.state.userId === shift.employee._id &&
                                 <button className="button calendar-index-button" value={shift} onClick={() => this.handleClick(shift)}>Change</button>
                               }

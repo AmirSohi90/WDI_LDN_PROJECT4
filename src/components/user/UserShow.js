@@ -69,6 +69,8 @@ class UserShow extends React.Component{
         console.log(this.state);
         axios.get('/api/days')
           .then(res => this.setState({ day: res.data.days }));
+        axios.get('/api/requests')
+          .then(res => this.setState({ requests: res.data}));
       });
   }
 
@@ -91,7 +93,6 @@ class UserShow extends React.Component{
   }
 
   render(){
-    console.log('STATE', this.state[3]);
     return(
       <div className="container">
         <div className="columns is-multiline is-mobile user-show-info-box">
@@ -120,13 +121,13 @@ class UserShow extends React.Component{
             request.status === 'Pending' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee || this.state.employer) &&
             <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Pending' &&
-                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
                 ||
                 request.userTwo._id === this.state.userId && request.status === 'Pending' &&
-                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
                 ||
                 this.state.user.employer && request.status === 'Pending' &&
-                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
               }
               {this.state.user.employer && request.status === 'Pending' &&
               <div>
@@ -146,13 +147,13 @@ class UserShow extends React.Component{
             request.status === 'Accepted' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
             <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Accepted' &&
-                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
                 ||
                 request.userTwo._id === this.state.userId && request.status === 'Accepted' &&
-                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
                 ||
                 this.state.user.employer && request.status === 'Accepted' &&
-                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
               }
             </div>
           )}
@@ -165,13 +166,13 @@ class UserShow extends React.Component{
             request.status === 'Declined' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
             <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Declined' &&
-                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
                 ||
                 request.userTwo._id === this.state.userId && request.status === 'Declined' &&
-                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
                 ||
                 this.state.user.employer && request.status === 'Declined' &&
-                <h1 className="user-show-info-box">{request.status} {request.userOne.firstName} change with {request.userTwo.firstName}</h1>
+                <h1 className="user-show-info-box"><strong>{request.status}:</strong>  {request.userOne.firstName} {request.userOne.lastName} change with {request.userTwo.firstName}</h1>
               }
             </div>
           )}
