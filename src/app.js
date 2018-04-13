@@ -45,7 +45,7 @@ class App extends React.Component {
               <Route path ="/days" component={IndexRoute} />
               <Route path ="/Login" component={Login} />
               <Route path ="/register" component={Register} />
-              <Route path ="/" component={HomePage} />
+              <Route exact path ="/" component={HomePage} />
               <Route component={NotFound} />
             </Switch>
           </section>

@@ -93,7 +93,7 @@ class EditUser extends React.Component{
         </div>
         {this.state.errors.jobRole && <small>{this.state.errors.jobRole}</small>}
 
-        <button className="button is-primary">Submit</button>
+        <button className="button login-button">Submit</button>
       </form>
     );
   }
