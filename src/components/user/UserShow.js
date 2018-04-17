@@ -8,9 +8,12 @@ class UserShow extends React.Component{
 
   state = {
     day: [],
+    days: [],
     shifts: [],
     requests: [],
-    user: ''
+    user: '',
+    userId: '',
+    employer: null
   }
 
   componentDidMount(){
@@ -88,7 +91,7 @@ class UserShow extends React.Component{
           </div>
         </div>
         <ul className="columns is-multiline user-show-info-box">
-          {this.state.day.map((day, i) =>
+          {this.state.days.map((day, i) =>
             <li key={i} className="card column is-one-quarter-desktop is-full-tablet is-full-mobile user-show-days">
               <h1 className="subtitle is-size-4 has-text-black">{day.dayOfTheWeek} - {day.date}</h1>
               {day.shifts.map((shift, i) =>
