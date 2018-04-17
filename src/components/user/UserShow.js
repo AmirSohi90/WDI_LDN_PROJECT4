@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Auth from '../../lib/Auth';
+import Promise from 'bluebird';
 // import { Link } from 'react-router-dom';
 
 class UserShow extends React.Component{
@@ -13,25 +14,19 @@ class UserShow extends React.Component{
   }
 
   componentDidMount(){
-
-    axios.get(`/api/users/${this.props.match.params.id}`)
-      .then(res => this.setState({ user: res.data }));
     const userId = Auth.getPayload().sub;
-    axios.get(`/api/users/${userId}`)
-      .then(res => this.setState({
-        user: res.data,
-        userId: res.data._id,
-        employer: res.data.employer
-      }));
 
-    axios.get('/api/requests')
-      .then(res => this.setState({ requests: res.data }));
-
-    axios.get('/api/days')
-      .then(res => this.setState({ day: res.data.days }));
-
-    axios.get('/api/shifts')
-      .then(res => this.setState({ shifts: res.data.shifts }, () => console.log(this.state)));
+    Promise.props({
+      user: axios.get(`/api/users/${userId}`).then(res => res.data),
+      requests: axios.get('/api/requests').then(res => res.data),
+      days: axios.get('/api/days').then(res => res.data.days),
+      shifts: axios.get('/api/shifts').then(res => res.data.shifts)
+    })
+      .then(data => {
+        data.userId = data.user._id;
+        data.employer = data.user.employer;
+        this.setState(data, () => console.log(this.state));
+      });
   }
 
   handleAcceptShift = (request) => {
@@ -41,8 +36,8 @@ class UserShow extends React.Component{
       .then(res => {
         console.log('put request res', res.data);
         axios.get('/api/days')
-          .then(res => this.setState({ day: res.data.days }));
-        this.handleAcceptChange(request);
+          .then(res => this.setState({ day: res.data.days }, () => this.handleAcceptChange(request)));
+
       });
   }
 
@@ -76,9 +71,14 @@ class UserShow extends React.Component{
       });
   }
 
+  // requestIsAccepted = (request) => {
+  //   return request.status === 'Accepted';
+  // }
+
   render(){
     return(
       <div className="container">
+        {}
         <div className="columns is-multiline is-mobile">
           <div className="column is-full-desktop is-full-tablet is-full-mobile">
             <h1 className="user-show-request-title has-text-black">Name: {this.state.user.firstName} {this.state.user.lastName}</h1>
@@ -100,6 +100,7 @@ class UserShow extends React.Component{
         <div className="columns user-show-request-title is-multiline is-mobile">
           <h1 className="title column is-full-desktop is-full-tablet is-full-mobile has-text-black">Pending Shift Changes</h1>
         </div>
+        {this.state.requests.length === this.state.requests.length &&
         <div className="columns user-show-request-box is-multiline">
           {this.state.requests.map((request, i) =>
             request.status === 'Pending' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee || this.state.employer) &&
@@ -123,12 +124,14 @@ class UserShow extends React.Component{
             </div>
           )}
         </div>
+        }
         <div className="columns user-show-request-title is-multiline">
           <h1 className="title column is-full-desktop is-full-tablet is-full-mobile has-text-black">Accepted Shift Changes</h1>
         </div>
+        {this.state.requests && this.state.day &&
         <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
-            request.status === 'Accepted' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
+            request.status === 'Accepted' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee || this.state.employer) &&
             <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Accepted' &&
                 <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
@@ -142,9 +145,11 @@ class UserShow extends React.Component{
             </div>
           )}
         </div>
+        }
         <div className="columns user-show-request-title is-multiline">
           <h1 className="title column is-full-desktop is-full-tablet is-full-mobile has-text-black">Declined Shift Changes</h1>
         </div>
+        {this.state.requests && this.state.day &&
         <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
             request.status === 'Declined' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
@@ -161,6 +166,7 @@ class UserShow extends React.Component{
             </div>
           )}
         </div>
+        }
       </div>
     );
   }

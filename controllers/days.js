@@ -22,7 +22,7 @@ function indexRoute(req, res, next){
     .then(days => data.days = days)
     .then(() => {
       return User.find()
-        .populate('users')
+        .populate('users requests shifts')
         .then(users => {
           data.users = users;
           res.json(data);

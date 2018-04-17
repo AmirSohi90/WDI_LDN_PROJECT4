@@ -29,7 +29,7 @@ class IndexRoute extends React.Component{
   }
 
   handleDelete = () => {
-    axios.delete(`api/days/${this.props.match.params.id}`, {
+    axios.delete(`/api/days/${this.props.match.params.id}`, {
       headers: {Authorization: `Bearer ${Auth.getToken()}`}
     })
       .then(() => this.props.history.push('/days'));
@@ -57,7 +57,7 @@ class IndexRoute extends React.Component{
       headers: { Authorization: `Bearer ${Auth.getToken()}` },
       data: this.state
     })
-      .then(() => this.props.history.push(`users/${this.state.userId}`));
+      .then(() => this.props.history.push(`/users/${this.state.userId}`));
   }
 
   handleReset = () => {
