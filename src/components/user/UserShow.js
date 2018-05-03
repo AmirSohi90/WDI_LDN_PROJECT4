@@ -155,7 +155,7 @@ class UserShow extends React.Component{
         {this.state.requests && this.state.day &&
         <div className="columns is-multiline">
           {this.state.requests.map((request, i) =>
-            request.status === 'Declined' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee) &&
+            request.status === 'Declined' && (this.state.userId === request.shiftOne.employee || this.state.userId === request.shiftTwo.employee || this.state.employer) &&
             <div className="column user-show-request-box is-full-desktop is-full-tablet is-full-mobile card" key={i}>
               {request.userOne._id === this.state.userId && request.status === 'Declined' &&
                 <h1 className="user-show-request-text"><strong>{request.status}:</strong> Change <strong>{request.userOne.firstName} {request.userOne.lastName}</strong> on <strong>{request.shiftOne.day.date}</strong> with <strong>{request.userTwo.firstName} {request.userTwo.lastName}</strong> on <strong>{request.shiftTwo.day.date}</strong></h1>
